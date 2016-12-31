@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.webmartini.mapper.GroupMapper">
+
+    <resultMap id="groupMapper" type="Group">
+        <id property="id" column="id" />
+        <result property="parentId" column="parent_id" />
+        <result property="name" column="name" />
+        <result property="description" column="description" />
+        <result property="code" column="code" />
+    </resultMap>
+
+    <select id="getMaxCode" parameterType="String" resultMap="groupMapper">
+    			<if test="parentId == 0 ">
+		        	select max(code) as code,'0000' as parentCode from groups where parent_id=0
+		     </if>
+		     <if test="parentId != 0 ">
+		        	select max(a.code) as code,b.code as parentCode from groups a,groups b where a.parent_id=b.id and a.parent_id=#{parentId}    
+		     </if>
+    </select>
+
+    <select id="suggest" parameterType="String" resultMap="groupMapper">
+        select distinct ${param1} from groups where 1=1 
+        and name like '%${param2}%' order by name asc limit 0,10
+    </select>
+
+    <select id="getGroups" parameterType="String" resultMap="groupMapper">
+        select * from groups where 1=1 
+        <if test="searchValue != null and searchValue != '' ">
+		        	and name like '%${searchValue}%'
+		     </if>
+        order by code
+    </select>
+    
+    <select id="getCascadeGroups" parameterType="String" resultMap="groupMapper">
+        select * from groups where 1=1 and code like '${code}%' order by code
+    </select>
+    
+
+    <select id="getGroupsByUserId" parameterType="String" resultMap="groupMapper">
+        select distinct g.* from groups g,users u, group_user gu 
+					 where g.id=gu.group_id   and u.id=gu.user_id and u.id=#{userId}
+    </select>
+
+    <select id="getExistCount" parameterType="String" resultType="java.lang.Integer">
+    			select count(*) from groups where 1=1 and name=#{param2} 
+        <if test=" param1 != null and param1 != '' "> 
+        		and id	!= #{param1}
+        </if>
+    </select>
+
+    <insert id="insertGroup" parameterType="Group">
+        insert into groups(parent_id,code,name,description) 
+        values(#{parentId},#{code},#{name},#{description})  
+    </insert>
+    
+    <insert id="insertGroups" parameterType="Group" >  
+        insert into groups(parent_id,code,name,description)    
+        values 
+        <foreach collection="list" index="index" item="item"  separator="," > 
+        		(#{item.parentId}, #{item.code},#{item.name},#{item.description})  
+        </foreach>
+    </insert>
+
+    <select id="getGroupById" parameterType="String" resultMap="groupMapper">
+        select * from groups where id=#{id} 
+    </select>
+    
+    <select id="getEditGroups" parameterType="String" resultMap="groupMapper">
+        select * from groups where 1=1 and code not like '${code}%' order by code
+    </select>
+
+    <select id="getChildGroups" parameterType="String" resultMap="groupMapper">
+        select * from groups where 1=1 and code like '${code}%' and code != #{code} order by code
+    </select>
+    
+    <update id="editGroup" parameterType="Group">
+			   update groups set parent_id	= #{parentId},name	= #{name},
+			   		code	= #{code}, description	= #{description} WHERE id=#{id}
+	  </update>
+	  
+	  <select id="getChildCount" parameterType="String" resultType="java.lang.Integer">
+       select count(*) from groups where code like  '${code}%'
+    </select>
+
+		<delete id="delGroup" parameterType="String">
+				delete from groups where id = #{id}
+		</delete>
+
+		<delete id="delGroupUser" parameterType="String">
+				delete from group_user where group_id = #{id}
+		</delete>
+
+		<delete id="delGroupRole" parameterType="String">
+				delete from group_role where group_id = #{id}
+		</delete>
+
+		 <resultMap id="userMapper" type="User">
+        <id property="id" column="id" />
+        <result property="loginName" column="login_name" />
+    </resultMap>
+		
+    <select id="getEnableUsers" parameterType="String" resultMap="userMapper">  
+        select id,login_name from users where 1=1 and status=1 order by id desc 
+    </select>
+
+    <resultMap id="roleMapper" type="Role">
+        <id property="id" column="id" />
+        <result property="parentId" column="parent_id" />
+        <result property="name" column="name" />
+    </resultMap>
+
+    <select id="getRoleTrees" parameterType="String" resultMap="roleMapper">
+        select id,parent_id,name from roles where 1=1 order by code
+    </select>
+
+    <select id="getUserIdsByGroupId" parameterType="String" resultType="java.lang.String">
+        select user_id from group_user where group_id=#{groupId}
+    </select>
+    
+    <select id="getRoleIdsByGroupId" parameterType="String" resultType="java.lang.String">
+        select role_id from group_role where group_id=#{groupId}
+    </select>
+    
+    <insert id="insertGroupUser" parameterType="java.util.List">  
+       insert into group_user (id, group_id, user_id) values 
+       <foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.id},#{item.groupId},#{item.refId})
+       </foreach>
+		 </insert>
+		 
+		 <insert id="insertGroupRole" parameterType="java.util.List">  
+       insert into group_role (id, group_id, role_id) values 
+       <foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.id},#{item.groupId},#{item.refId})
+       </foreach>
+		 </insert>
+
+</mapper>

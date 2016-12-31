@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.webmartini.mapper.UserMapper">
+
+    <resultMap id="userMapper" type="User">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="sex" column="sex" />
+        <result property="password" column="password" />
+        <result property="loginName" column="login_name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="status" column="status" />
+        <result property="avatar" column="avatar" />
+        <result property="idNumber" column="id_number" />
+        <result property="birthday" column="birthday" />
+        <result property="loginIP" column="login_ip" />
+        <result property="loginTime" column="login_time" />
+        <result property="loginCount" column="login_count" />
+    </resultMap>
+
+    <select id="getPermissions" parameterType="String" resultType="String">
+       select m.url from users u, roles r, user_role ur,menu_role mr,menu m where 
+     				u.id=ur.user_id and r.id=ur.role_id and r.id=mr.role_id and m.status=1 
+     				and mr.menu_id=m.id and m.url !='' and u.id=#{id}
+       union  
+				 select m.url from users u, groups g, group_user gu,group_role gr,roles r,menu_role mr,menu m where 
+     				u.id=gu.user_id and gu.group_id=g.id and gr.group_id=g.id and gr.role_id=r.id  
+     				and r.id=mr.role_id and mr.menu_id=m.id and m.status=1 and m.url !='' and u.id=#{id}    
+    </select>
+
+    <select id="suggest" parameterType="String" resultMap="userMapper">
+        select distinct ${param1} from users where 1=1 
+        <if test="param1=='login_name'">
+        			and login_name like '%${param2}%' order by login_name asc limit 0,10
+        </if>
+        <if test="param1=='email'">
+        			and email like '%${param2}%' order by email asc limit 0,10
+        </if>
+        <if test="param1=='phone'">
+        			and phone like '%${param2}%' order by phone asc limit 0,10
+        </if>
+    </select>
+
+    <select id="getExistCount" parameterType="String" resultType="java.lang.Integer">
+    			select count(*) from users where 1=1 
+    			<if test="param1=='login_name'">
+        			and login_name=#{param2}
+        </if>
+        <if test="param1=='email'">
+        			and email=#{param2}
+        </if>
+        <if test="param1=='phone'">
+        			and phone=#{param2}
+        </if>
+        <if test=" param3 != null and param3 != '' "> 
+        			and id	!= #{param3}
+        </if>
+    </select>
+
+    <select id="getUserById" parameterType="String" resultMap="userMapper">
+        select * from users where id=#{id}     
+    </select>
+    
+    <select id="getUserByLoginName" parameterType="String" resultMap="userMapper">
+        select * from users where login_name=#{loginName}     
+    </select>
+
+    <select id="getUserByLoginEmail" parameterType="String" resultMap="userMapper">
+        select * from users where email=#{email}     
+    </select>
+
+    <select id="getUserByUserName" parameterType="String" resultMap="userMapper">
+        select * from users where email=#{username} or login_name=#{username}     
+    </select>
+
+    <select id="getUsers" parameterType="String" resultMap="userMapper">  
+        select * from users where 1=1
+        <if test=" param1 != null and param1 != '' and param2 != null and param2 != '' "> 
+		        <if test="param1=='login_name'">
+		        			and login_name like '%${param2}%' 
+		        </if>
+		        <if test="param1=='email'">
+		        			and email like '%${param2}%'
+		        </if>
+		        <if test="param1=='phone'">
+		        			and phone like '%${param2}%'
+		        </if>
+        </if>
+        order by id desc 
+    </select>
+
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">  
+        insert into users(login_name,password,email,phone,status)   
+        values(#{loginName},#{password},#{email},#{phone},#{status})  
+    </insert>
+
+    <insert id="insertUsers" parameterType="User" >  
+        insert into users(login_name,password,email,phone,name,sex,birthday,id_number,status)   
+        values 
+        <foreach collection="list" index="index" item="item"  separator="," > 
+        		(#{item.loginName},#{item.password},#{item.email},#{item.phone},#{item.name},#{item.sex},#{item.birthday},#{item.idNumber},#{item.status})  
+        </foreach>
+    </insert>
+
+    <insert id="insertUserRole" parameterType="java.util.List">  
+       insert into user_role (id, user_id, role_id) values 
+       <foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.id},#{item.userId},#{item.refId})
+       </foreach>
+		 </insert>
+
+		 <insert id="insertGroupUser" parameterType="java.util.List">  
+       insert into group_user (id, user_id, group_id) values 
+       <foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.id},#{item.userId},#{item.refId})
+       </foreach>
+		 </insert>
+
+		 <select id="getGroupIdsByUserId" parameterType="String" resultType="java.lang.String">
+        select group_id from group_user where user_id=#{userId}
+    </select>
+
+    <select id="getGroupNamesByUserId" parameterType="String" resultType="java.lang.String">
+        select g.name from group_user gu,groups g where g.id=gu.group_id and gu.user_id=#{userId}
+    </select>
+
+    <select id="getRoleIdsByUserId" parameterType="String" resultType="java.lang.String">
+        select role_id from user_role where user_id=#{userId}
+    </select>
+
+    <select id="getRoleNamesByUserId" parameterType="String" resultType="java.lang.String">
+        select r.name from user_role ur,roles r where r.id=ur.role_id and ur.user_id=#{userId}
+    </select>
+
+    <delete id="delUserRoleByUserId" parameterType="String">
+				delete from user_role where user_id = #{id}
+		</delete>
+
+		<delete id="delGroupUserByUserId" parameterType="String">
+				delete from group_user where user_id = #{id}
+		</delete>
+
+		<update id="updateUserAvatar" parameterType="String">
+		update users set avatar	= #{avatar} where id = #{userId}
+	</update>
+
+  <update id="editUser" parameterType="User">
+		update users set login_name	= #{loginName}, password	= #{password}, 
+		email = #{email}, phone=#{phone} where id = #{id}
+	</update>
+
+	<update id="editUserProfile" parameterType="User">
+		 update users set name	= #{name},sex=#{sex},id_number=#{idNumber},
+		 birthday=#{birthday},phone=#{phone} where id = #{id}
+	</update>
+
+	<update id="editUserPassword" parameterType="String">
+		update  users set password=#{password} where id = #{userId}
+	</update>
+
+	<update id="editUserStatus" parameterType="String">
+		update  users set status=#{param2} where id = #{param1}
+	</update>
+
+	<update id="updateUserLoginStatus" parameterType="User">
+		update  users set login_ip=#{loginIP},login_time=#{loginTime},login_count=#{loginCount} where id = #{id}
+	</update>
+
+  <delete id="delUser" parameterType="java.util.List">
+				delete from users where id in 
+				   <foreach collection="list" index="index" item="item" open="(" separator="," close=")"> 
+            #{item} 
+         </foreach>
+	</delete>
+
+	 <delete id="delUserRole" parameterType="java.util.List">
+				delete from user_role where user_id in 
+				   <foreach collection="list" index="index" item="item" open="(" separator="," close=")"> 
+            #{item} 
+         </foreach>
+		</delete>
+
+		<delete id="delUserGroup" parameterType="java.util.List">
+				delete from group_user where user_id in 
+				   <foreach collection="list" index="index" item="item" open="(" separator="," close=")"> 
+            #{item} 
+         </foreach>
+		</delete>
+ 
+</mapper>
+

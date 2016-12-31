@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.webmartini.mapper.MessageMapper">
+
+    <resultMap id="messageMapper" type="Message">
+        <id property="id" column="id" />
+					<result property="loginName" column="login_name" />
+        <result property="content" column="content" />
+        <result property="sendId" column="send_id" />
+        <result property="sendTime" column="send_time" />
+        <result property="recId" column="rec_id" />
+        <result property="saveTime" column="save_time" />
+        <result property="title" column="title" />
+        <result property="status" column="status" />
+        <result property="groupIds" column="group_ids" />
+        <result property="roleIds" column="role_ids" />
+        <result property="attachment1" column="attachment1" />
+        <result property="attachment2" column="attachment2" />
+        <result property="attachment3" column="attachment3" />
+    </resultMap>
+
+    <insert id="insert" parameterType="message" useGeneratedKeys="true" keyProperty="id">
+        insert into message(title,content,rec_id,send_id,send_time,save_time,group_ids,role_ids,status,attachment1,attachment2,attachment3) 
+        values(#{title},#{content},#{recId},#{sendId},#{sendTime},#{saveTime},#{groupIds},#{roleIds},#{status},#{attachment1},#{attachment2},#{attachment3})  
+    </insert>
+
+    <select id="getMessages" parameterType="String" resultMap="messageMapper">
+        select u.login_name,m.* from message m,users u where u.id=m.send_id 
+        <if test="status != null and status != '' ">
+		        	and m.status = #{status}
+		     </if>
+        order by m.status,m.id desc
+    </select>
+
+    <select id="getMessageById" parameterType="String" resultMap="messageMapper">
+        select u.login_name,m.* from message m,users u where u.id=m.send_id and m.id=#{id}
+    </select>
+    
+    <delete id="delete" parameterType="java.util.List">
+				delete from message where id in 
+				   <foreach collection="list" index="index" item="item" open="(" separator="," close=")"> 
+            #{item} 
+         </foreach>
+		</delete>
+		
+			<update id="publish" parameterType="String">
+				update message set status=1 ,send_time=now() where id = #{id}
+			</update>
+
+</mapper>

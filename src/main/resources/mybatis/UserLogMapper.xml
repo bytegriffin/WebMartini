@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.webmartini.mapper.UserLogMapper">
+
+    <resultMap id="userLogMapper" type="UserLog">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="userName" column="user_name" />
+        <result property="operType" column="oper_type" />
+        <result property="operContent" column="oper_content" />
+        <result property="operTime" column="oper_time" />
+        <result property="operIp" column="oper_ip" />
+        <result property="browser" column="browser" />
+        <result property="os" column="os" />
+        <result property="exception" column="exception" />
+        <result property="url" column="url" />
+        <result property="method" column="method" />
+        <result property="controller" column="controller" />
+        <result property="httpStatus" column="http_status" />
+        <result property="days" column="days" />
+        <result property="count" column="count" />
+    </resultMap>
+
+    <select id="getUserLogById" parameterType="String" resultMap="userLogMapper">
+        select * from user_log where id=#{id}     
+    </select>
+
+    <insert id="insert" parameterType="UserLog">
+        insert into user_log(id,user_id,user_name,oper_type,oper_content,oper_time,oper_ip,browser,os,exception,url,method,controller,http_status) 
+        values(#{id},#{userId},#{userName},#{operType},#{operContent},#{operTime},#{operIp},#{browser},#{os},#{exception},#{url},#{method},#{controller},#{httpStatus})  
+    </insert>
+
+    <select id="getUserLogs" parameterType="String" resultMap="userLogMapper">
+        select * from user_log where 1=1 
+        <if test="searchValue != null and searchValue != '' ">
+		        	and user_name like '%${searchValue}%'
+		     </if>
+		     <if test="startTime != null and startTime != '' ">
+		        	and oper_time &gt;= '${startTime}'
+		     </if>
+		     <if test="endTime != null and endTime != '' ">
+		        	and oper_time &lt;= '${endTime}'
+		     </if>
+        order by oper_time desc
+    </select>
+
+    <select id="suggest" parameterType="String" resultMap="userLogMapper">
+        select distinct ${userName} from user_log where 1=1 
+        and user_name like '%${searchValue}%' order by user_name asc limit 0,10
+    </select>
+
+    <select id="getErrorUserLogs" parameterType="String" resultMap="userLogMapper">
+        select * from user_log where 1=1 and exception is not null 
+        <if test="searchValue != null and searchValue != '' ">
+		        	and user_name like '%${searchValue}%'
+		     </if>
+		     <if test="startTime != null and startTime != '' ">
+		        	and oper_time &gt;= '${startTime}'
+		     </if>
+		     <if test="endTime != null and endTime != '' ">
+		        	and oper_time &lt;= '${endTime}'
+		     </if>
+        order by oper_time desc
+    </select>
+
+    <select id="suggestError" parameterType="String" resultMap="userLogMapper">
+        select distinct ${userName} from user_log where 1=1 and exception is not null 
+        and user_name like '%${searchValue}%' order by user_name asc limit 0,10
+    </select>
+
+    <select id="getRecentImportantEvent" parameterType="String" resultMap="userLogMapper">
+					select * from user_log  where user_id=#{id} 
+					and exception is null order by oper_time desc  limit 5
+    </select>
+
+    <select id="getPVByUserId" resultMap="userLogMapper">
+        select DATE_FORMAT(oper_time,'%Y%m%d') days,count(id) count from user_log 
+        where user_id=#{id} group by days desc limit 7       
+    </select>
+
+</mapper>
