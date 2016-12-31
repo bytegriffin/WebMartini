@@ -23,7 +23,7 @@
 		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
-		<script type="text/javascript" src="/js/dataTables.responsive.js"></script>
+		<script type="text/javascript" src="/js/dataTables.responsive.min.js"></script>
 		<script type="text/javascript" src="/js/jquery.ztree.all.min.js"></script>
 		<script type="text/javascript" src="/js/layer.js"></script>
 		<script type="text/javascript" src="/js/layer-plugin.js"></script>

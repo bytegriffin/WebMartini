@@ -2,7 +2,7 @@
 <#include "/layout/form.ftl">  
 <@header />
 <@form />
-<link rel="stylesheet" href="/css/fileinput.css" />
+<link rel="stylesheet" href="/css/fileinput.min.css" />
 <style>
 .kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
     margin: 0;

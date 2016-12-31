@@ -2,7 +2,7 @@
 <#include "/layout/form.ftl">  
 <@header />
 <@form />
-<link rel="stylesheet" href="/css/fileinput.css" />
+<link rel="stylesheet" href="/css/fileinput.min.css" />
 
 </head>
 <body id="body" style="background:#F7F7F7;" >

@@ -1,5 +1,5 @@
 /*
- * printThis v1.5
+ * printThis v1.7.0
  * @desc Printing plug-in for jQuery
  * @author Jason Day
  *
@@ -25,6 +25,7 @@
  *      removeInline: false,        * remove all inline styles from print elements
  *      printDelay: 333,            * variable print delay
  *      header: null,               * prefix to html
+ *      base: false,                * preserve the BASE tag, or accept a string for the URL
  *      formValues: true            * preserve input/form values
  *  });
  *
@@ -89,10 +90,23 @@
 
             var $doc = $iframe.contents(),
                 $head = $doc.find("head"),
-                $body = $doc.find("body");
+                $body = $doc.find("body"),
+                $base = $('base'),
+                baseURL;
 
             // add base tag to ensure elements use the parent domain
-            $head.append('<base href="' + document.location.protocol + '//' + document.location.host + '">');
+            if (opt.base === true && $base.length > 0) {
+                // take the base tag from the original page
+                baseURL = $base.attr('href');
+            } else if (typeof opt.base === 'string') {
+                // An exact base string is provided
+                baseURL = opt.base;
+            } else {
+                // Use the page URL as the base
+                baseURL = document.location.protocol + '//' + document.location.host;
+            }
+
+            $head.append('<base href="' + baseURL + '">');
 
             // import page stylesheets
             if (opt.importCSS) $("link[rel=stylesheet]").each(function() {
@@ -106,10 +120,9 @@
             // import style tags
             if (opt.importStyle) $("style").each(function() {
                 $(this).clone().appendTo($head);
-                //$head.append($(this));
             });
 
-            //add title of the page
+            // add title of the page
             if (opt.pageTitle) $head.append("<title>" + opt.pageTitle + "</title>");
 
             // import additional stylesheet(s)
@@ -146,7 +159,7 @@
                             $iframeInput = $doc.find('input[name="' + $name + '"]'),
                             $value = $this.val();
 
-                        //order matters here
+                        // order matters here
                         if (!$checker) {
                             $iframeInput.val($value);
                         } else if ($this.is(':checked')) {
@@ -160,7 +173,7 @@
                     });
                 }
 
-                //loop through selects
+                // loop through selects
                 var $select = $element.find('select');
                 if ($select.length) {
                     $select.each(function() {
@@ -171,7 +184,7 @@
                     });
                 }
 
-                //loop through textareas
+                // loop through textareas
                 var $textarea = $element.find('textarea');
                 if ($textarea.length) {
                     $textarea.each(function() {
@@ -209,7 +222,7 @@
                     }
                 }
 
-                //remove iframe after print
+                // remove iframe after print
                 if (!opt.debug) {
                     setTimeout(function() {
                         $iframe.remove();
@@ -233,7 +246,8 @@
         removeInline: false,    // remove all inline styles
         printDelay: 333,        // variable print delay
         header: null,           // prefix to html
-        formValues: true,        // preserve input/form values
+        formValues: true,       // preserve input/form values
+        base: false,            // preserve the BASE tag, or accept a string for the URL
         doctypeString: '<!DOCTYPE html>' // html doctype
     };
 

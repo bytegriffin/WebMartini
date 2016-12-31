@@ -2,10 +2,7 @@
 1.Bootstrap v3.3.7
 http://getbootstrap.com/
 
-2.AdminLTE v2.3.3
-https://github.com/almasaeed2010/AdminLTE (修改css文件中的body加入background-color: #ecf0f5; 将 https://font.googleapi.com 替换成 http://fonts.useso.com/)
-
-3.gentelella v1.3.0
+2.gentelella v1.3.0
 https://github.com/puikinsh/gentelella   
 修改custom.js文件中的 setContentHeight方法中加24高度    contentHeight -= $NAV_MENU.height() + footerHeight+24;
 去除Switchery相关代码
@@ -35,17 +32,11 @@ $MENU_TOGGLE.on('click', function() {
     setContentHeight();
 });
 
-
-3.JQGrid free v4.13.3
-https://github.com/free-jqgrid/jqGrid
-http://blog.mn886.net/jqGrid/
-http://www.trirand.com/blog/jqgrid/jqgrid.html
-
-3.datatables 1.10.12
+3.datatables 1.10.13
 https://www.datatables.net/
 http://datatables.club/
 
-3.1 datatables自适应插件     v2.1.0
+3.1 datatables自适应插件     v2.1.1
 https://github.com/DataTables/Responsive
 
 4.layer.js v3.0.1
@@ -54,7 +45,7 @@ http://layer.layui.com/ (修改layer.js文件中css路径为../css/layer.css,修
 4.JQuery v2.2.4
 https://jquery.com/download/
 
-6.Bootstrap-validator v0.5.3
+5.Bootstrap-validator v0.5.3
 https://github.com/nghuuphuoc/bootstrapvalidator
 http://www.htmleaf.com/Demo/201505101808.html
 
@@ -65,110 +56,91 @@ http://www.zhangxinxu.com/wordpress/2012/12/jquery-html5validate-html5-form-vali
 7.twitter-bootstrap-typeahead v1.2.2 (换最新版的typeahead.js的话会出现样式问题，所以用这个老版本)
 https://github.com/tcrosen/twitter-bootstrap-typeahead 
 
-6.Bootstrap iconpicker v1.7.0 (有重复图标出现，需要修改iconset-fontawesome-4.2.0.min.js文件)
+8.Bootstrap iconpicker v1.7.0 (有重复图标出现，需要修改iconset-fontawesome-4.2.0.min.js文件)
 https://github.com/victor-valencia/bootstrap-iconpicker
 http://victor-valencia.github.io/bootstrap-iconpicker/（此版本只能配套使用fontawesome4.2.0）
 
-7.Bootstrap-switch v3.3.2
+9.Bootstrap-switch v3.3.2
 https://github.com/nostalgiaz/bootstrap-switch/ (修改css按钮颜色)
 
-
-7.jquery nicescroll v3.6.8
+10.jquery nicescroll v3.6.8 (如果使用Zoom功能需要修改zoomico.png文件路径为/images/"+a.opt.scriptpath+"zoomico.png)
 http://www.areaaperta.com/nicescroll/
 https://github.com/inuyaksa/jquery.nicescroll
 http://www.cnblogs.com/jinqi79731/p/nicescroll.html
 
-
-8.zTree 3.5.25　　（ztree样式与custom.css冲突，解决方法：修改jquery-ztree-all.min.js文件中的"button"改为"zbutton"，
+11.zTree 3.5.27　　（ztree样式与custom.css冲突，解决方法：修改jquery-ztree-all.min.js文件中的"button"改为"zbutton"，
 修改ztree.css文件将button修改为zbutton,修改ztree.css文件中的font-size:12px为14px字体大小）
 https://github.com/zTree/zTree_v3
 
-9.iCheck v1.0.2
+12.iCheck v1.0.2
 https://github.com/fronteed/iCheck
 http://www.bootcss.com/p/icheck/
 
-9.awesome-bootstrap-checkbox v1.0.0
-https://github.com/flatlogic/awesome-bootstrap-checkbox
-
-9.select2 v4.0.3
+13.select2 v4.0.3
 https://github.com/select2/select2         (将select2.zh.js文件中的中文内容替换select2.min.js文件相应的属性，或者按照官方的国际化来做)
 http://www.51xuediannao.com/demo.php
 http://www.lrdemo.com/8.html
 
-10.nprogress   v0.2.0
+14.nprogress   v0.2.0
 https://github.com/rstacruz/nprogress    (将CSS文件中的#29d改为#26B99A)
 
-10.animate.css v3.1.0
+15.animate.css v3.1.0
 https://github.com/daneden/animate.css
 https://daneden.github.io/animate.css/
 
-10.bootstrap-fileinput v4.3.5 (将fileinput.css文件中的../img 改为 img)
+16.bootstrap-fileinput v4.3.5 (将fileinput.css文件中的../img 改为 img)
 http://plugins.krajee.com/file-input
 https://github.com/kartik-v/bootstrap-fileinput/
 
-10.bootstrap-filestyle  v1.2.1
+17.bootstrap-filestyle  v1.2.1
 https://github.com/markusslima/bootstrap-filestyle
 
-
-11.bootstrap-datepicker v1.7.0-dev
+18.bootstrap-datepicker v1.7.0-dev
 http://bootstrap-datepicker.readthedocs.io/en/latest/
 https://github.com/eternicode/bootstrap-datepicker
 
-11.moment.js v2.13.0
+19.moment.js v2.17.1
 http://momentjs.cn/
 
-11.bootstrap-daterangepicker v2.1.24   (需要依赖moment.js文件， 修改了daterangepicker.js文件，将"Apply"与"Cancel"改为"确定"与"取消")
+20.bootstrap-daterangepicker v2.1.24   (需要依赖moment.js文件， 修改了daterangepicker.js文件，将"Apply"与"Cancel"改为"确定"与"取消")
 https://github.com/dangrossman/bootstrap-daterangepicker
 http://www.daterangepicker.com/#examples
 
-12. wangeditor v2.1.20   (修改了wangEditor.js文件中var tableHtml = '<table>';改为了var tableHtml = '<table class="table table-bordered">'标签和
+21. wangeditor v2.1.22   (修改了wangEditor.js文件中var tableHtml = '<table>';改为了var tableHtml = '<table class="table table-bordered">'标签和
 删掉"如何复制视频链接"的<a>标签全部内容，还有注销掉"本页面富文本编辑器由 wangEditor 提供"的版权声明)
 https://github.com/wangfupeng1988/wangEditor/
 http://www.kancloud.cn/wangfupeng/wangeditor2/113961
 
-13. textare autosize v3.0.17
+22. textare autosize v3.0.20
 https://github.com/jackmoore/autosize
 
-
-14.echarts 3 v3.2.3
+23.echarts 3 v3.3.2
 https://github.com/ecomfe/echarts
 http://echarts.baidu.com/examples.html
 http://echarts.baidu.com/option.html#title
 
-
-15.chart.js 2 v2.3.0
+24.chart.js 2 v2.3.0
 https://github.com/chartjs/Chart.js
 http://chartjs.org/
 http://chartjs.cn/docs/
 http://www.bootcss.com/p/chart.js/docs/
 
-16. flot v0.8.3
-http://www.flotcharts.org/
-https://github.com/flot/flot
-
-17. flot-plugin 
-https://github.com/AMKohn/flot
-
-18.sparkline v2.1.3
+25.sparkline v2.1.3
 http://omnipotent.net/jquery.sparkline/
+https://github.com/gwatts/jquery.sparkline/
 
-9.Bootstrap-addtabs
-http://git.oschina.net/hbbcs/bootStrap-addTabs/
-
-11.printThis  v1.5
+11.printThis  v1.7
 https://github.com/jasonday/printThis
 
 
 后端：
-1.Spring MVC
+1.Spring Boot
+http://projects.spring.io/spring-boot/
 
 2.Mybatis
 http://www.mybatis.org/mybatis-3/zh/configuration.html
 
-3.beetl
-http://ibeetl.com/
-
-4.UserAgentUtils
+3.UserAgentUtils
 https://github.com/HaraldWalker/user-agent-utils
 http://www.bitwalker.eu/software/user-agent-utils
 
