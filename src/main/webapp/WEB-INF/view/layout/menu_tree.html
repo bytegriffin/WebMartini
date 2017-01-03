@@ -1,0 +1,20 @@
+
+<% for(cur in menus!){ %>
+
+		<li id="menuid_${cur.id}" >
+
+		   <a target="mainFrame" href="javascript:void(0)" <%if (isEmpty(cur.children)){ %> onclick="loadframe('${cur.id}','${cur.parentId}','${cur.url}');" <% } %> > 
+		     <i class="fa ${cur.icon}"></i> 
+		     ${cur.name} <%if (isNotEmpty(cur.children)){ %> <span class="fa fa-chevron-down"></span> <% } %>
+		     </a>
+	 		  	<%if (isEmpty(cur.children)){ %></li><% } %> 
+	   
+		  	 <%if (isNotEmpty(cur.children)){ %> 
+		  	 
+			     <ul class="nav child_menu">
+			         <%include("menu_tree.html",{'menus':cur.children}){} %>
+				     </ul>		     
+		     	</li>
+				    <% } %>
+
+<% } %> 

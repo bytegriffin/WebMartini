@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Mullet Admin</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<link rel="stylesheet" href="static/css/bootstrap.min.css">
+<link rel="stylesheet" href="static/css/font-awesome.min.css">
+<link rel="stylesheet" href="static/css/custom.css" />
+<link rel="stylesheet" href="static/css/nprogress.css" />
+<link rel="stylesheet" href="static/css/animate.min.css" />
+</head>
+
+<body id="body" class="nav-md"  oncontextmenu="return false"  >
+    <div class="container body">
+      <div class="main_container">
+  
+<%includeJSP("/layout/menus"){} %>
+		<%includeJSP("/layout/header"){} %>
+
+		<div class="right_col" role="main">
+			<iframe name="mainFrame" id="mainFrame" src="dashboard" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="padding: 0px; width: 100%; height: 1000px;" class="nav-md footer_fixed"></iframe>
+		</div>
+
+		<%include("layout/footer.html"){} %>
+
+	</div>
+</div>
+
+<!--[if !IE]> -->
+<script type="text/javascript">
+	window.jQuery || document.write("<script src='static/js/jquery.min.js'>"	+ "<"+"/script>");
+</script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='static/js/jquery1x.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/custom.js"></script>
+<script type="text/javascript" src="static/js/nprogress.js"></script>
+<script type="text/javascript" src="static/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="static/js/form.js"></script>
+
+<script type="text/javascript">
+NProgress.configure({ ease: 'ease', speed: 1000, showSpinner: false });
+NProgress.start();
+//选择菜单sidebar
+var firstmenu = $($("li[id^=menuid_]")[0]);
+firstmenu.attr("class","active");
+var fmid = "";
+var mid = "";
+NProgress.done(); 
+
+function loadframe(id,fid,url){
+	  NProgress.start();
+		firstmenu.removeClass();
+		if(id != mid){
+			$("#menuid_"+mid).removeClass();
+			mid = id;
+		}
+		if(fid != fmid){
+			$("#menuid_"+fmid).removeClass();
+			fmid = fid;
+		}
+		if(fid != 0){
+			$("#menuid_"+fid).attr("class","active");
+		}
+		$("#menuid_"+id).attr("class","current-page");
+		$("#mainFrame").attr("src",url);
+		$("#mainFrame").attr("class","animated fadeIn");
+		NProgress.done();
+}
+
+function loadprofile(){
+	  NProgress.start();
+		$("#mainFrame").attr("src","user/profile");
+		$("#mainFrame").attr("class","animated fadeIn");
+		NProgress.done();
+}
+
+function viewallmsg(){
+	  NProgress.start();
+		$("#mainFrame").attr("src","user/message");
+		$("#mainFrame").attr("class","animated fadeIn");
+		NProgress.done();
+}
+
+function viewmsg(id){
+	  NProgress.start();
+		$("#mainFrame").attr("src","user/message/view/"+id);
+		$("#mainFrame").attr("class","animated fadeIn");
+		NProgress.done();
+}
+
+$('#mainFrame').niceScroll({ 
+    cursorcolor: "#7F7F7F",//#CC0071 光标颜色 
+    cursoropacitymax: 1, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
+    touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
+    cursorwidth: "5px", //像素光标的宽度 
+    cursorborder: "0", //     游标边框css定义 
+    cursorborderradius: "5px",//以像素为光标边界半径 
+    autohidemode: "cursor" //是否隐藏滚动条 
+});
+
+</script>
+</body>
+</html>

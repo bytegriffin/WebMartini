@@ -1,0 +1,1 @@
+location.href='${ctxPath}/error/500';

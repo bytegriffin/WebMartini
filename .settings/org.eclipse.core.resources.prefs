@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/WEB-INF/view/chart/echarts.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/error/400.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/error/405.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/error/440.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/error/kickout.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/group/group_list.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/group/group_role.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/layout/error.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/layout/table.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/role/role_group.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/user/user_avatar.html=UTF-8
+encoding//src/main/webapp/WEB-INF/view/user/user_list.html=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.mullet.backend.dao.RoleDao">
+
+    <resultMap id="roleMapper" type="Role">
+        <id property="id" column="id" />
+        <result property="parentId" column="parent_id" />
+        <result property="name" column="name" />
+        <result property="description" column="description" />
+        <result property="code" column="code" />
+    </resultMap>
+
+    <select id="getMaxCode" parameterType="String" resultMap="roleMapper">
+    			<if test="parentId == 0 ">
+		        	select max(code) as code,'0000' as parentCode from roles where parent_id=0
+		     </if>
+		     <if test="parentId != 0 ">
+		        	select max(a.code) as code,b.code as parentCode from roles a,roles b where a.parent_id=b.id and a.parent_id=#{parentId}    
+		     </if>
+    </select>
+
+    <insert id="insertMenuRole" parameterType="java.util.List">  
+       insert into menu_role (id,role_id, menu_id) values 
+       <foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.id},#{item.roleId},#{item.refId})
+       </foreach>
+		 </insert>
+
+    <resultMap id="menuMapper" type="Menu">
+        <id property="id" column="id" />
+        <result property="parentId" column="parent_id" />
+        <result property="name" column="name" />
+    </resultMap>
+
+    <select id="getMenuTrees" parameterType="String" resultMap="menuMapper">
+        select id,parent_id,name from menu where 1=1 and status=1 order by code
+    </select>
+
+    <select id="getMenuIdsByRoleId" parameterType="String" resultType="java.lang.String">
+        select menu_id from menu_role where role_id=#{roleId}
+    </select>
+
+    <insert id="insertUserRole" parameterType="java.util.List">  
+       insert into user_role (id, role_id, user_id) values 
+       <foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.id},#{item.roleId},#{item.refId})
+       </foreach>
+		 </insert>
+
+     <resultMap id="userMapper" type="User">
+        <id property="id" column="id" />
+        <result property="loginName" column="login_name" />
+    </resultMap>
+
+    <select id="getEnableUsers" parameterType="String" resultMap="userMapper">  
+        select id,login_name from users where 1=1 and status=1 order by id desc 
+    </select>
+
+    <select id="getUserIdsByRoleId" parameterType="String" resultType="java.lang.String">
+        select user_id from user_role where role_id=#{roleId}
+    </select>
+
+    <resultMap id="groupMapper" type="Group">
+        <id property="id" column="id" />
+        <result property="parentId" column="parent_id" />
+        <result property="name" column="name" />
+    </resultMap>
+
+    <select id="getGroupTrees" parameterType="String" resultMap="groupMapper">
+        select id,parent_id,name from groups where 1=1 order by code
+    </select>
+
+    <select id="getGroupIdsByRoleId" parameterType="String" resultType="java.lang.String">
+        select group_id from group_role where role_id=#{roleId}
+    </select>
+
+   <insert id="insertGroupRole" parameterType="java.util.List">  
+       insert into group_role (id, role_id, group_id) values 
+       <foreach collection="list" item="item" index="index" separator="," >  
+         (#{item.id},#{item.roleId},#{item.refId})
+       </foreach>
+		 </insert>
+
+    <select id="getExistCount" parameterType="String" resultType="java.lang.Integer">
+    			select count(*) from roles where 1=1 and name=#{param2} 
+        <if test=" param1 != null and param1 != '' "> 
+        		and id	!= #{param1}
+        </if>
+    </select>
+
+    <select id="suggest" parameterType="String" resultMap="roleMapper">
+        select distinct ${param1} from roles where 1=1 
+        and name like '%${param2}%' order by name asc limit 0,10
+    </select>
+
+    <select id="getRoles" parameterType="String" resultMap="roleMapper">
+        select * from roles where 1=1 
+        <if test="searchValue != null and searchValue != '' ">
+		        	and name like '%${searchValue}%'
+		     </if>
+        order by code
+    </select>
+    
+    <select id="getCascadeRoles" parameterType="String" resultMap="roleMapper">
+        select * from roles where 1=1 and code like '${code}%' order by code
+    </select>
+
+    <select id="getRolesByUserId" parameterType="String" resultMap="roleMapper">
+        select distinct r.* from roles r,users u, user_role ur 
+					 where r.id=ur.role_id and u.id=ur.user_id and u.id=#{userId}
+    </select>
+
+    <insert id="insertRole" parameterType="Role">
+        insert into roles(parent_id,code,name,description) 
+        values(#{parentId},#{code},#{name},#{description})  
+    </insert>
+
+    <insert id="insertRoles" parameterType="Role">
+        insert into roles(parent_id,code,name,description)    
+        values 
+        <foreach collection="list" index="index" item="item"  separator="," > 
+        		(#{item.parentId}, #{item.code},#{item.name},#{item.description})  
+        </foreach>
+    </insert>
+
+    <select id="getRoleById" parameterType="String" resultMap="roleMapper">
+        select * from roles where id=#{id} 
+    </select>
+
+    <select id="getEditRoles" parameterType="String" resultMap="roleMapper">
+        select * from roles where 1=1 and code not like '${code}%' order by code
+    </select>
+    
+    <select id="getChildRoles" parameterType="String" resultMap="roleMapper">
+        select * from roles where 1=1 and code like '${code}%' and code != #{code} order by code
+    </select>
+ 
+    <update id="editRole" parameterType="Role">
+			   update roles set parent_id	= #{parentId},name	= #{name},
+			   	code	= #{code},description	= #{description} WHERE id=#{id}
+	  </update>
+	  
+	  	<select id="getChildCount" parameterType="String" resultType="java.lang.Integer">
+       select count(*) from roles where code like  '${code}%'
+    </select>
+
+		<delete id="delRole" parameterType="String">
+				delete from roles where id = #{id}
+		</delete>
+
+		<delete id="delMenuRole" parameterType="String">
+				delete from menu_role where role_id = #{id}
+		</delete>
+
+		<delete id="delUserRole" parameterType="String">
+				delete from user_role where role_id = #{id}
+		</delete>
+
+		<delete id="delGroupRole" parameterType="String">
+				delete from group_role where role_id = #{id}
+		</delete>
+
+</mapper>

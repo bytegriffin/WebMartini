@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.mullet.backend.dao.UserMessageDao">
+
+    <resultMap id="userMessageMapper" type="UserMessage">
+        <id property="id" column="id" />
+        <result property="loginName" column="login_name" />
+        <result property="avatar" column="avatar" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="attachment1" column="attachment1" />
+        <result property="attachment2" column="attachment2" />
+        <result property="attachment3" column="attachment3" />
+
+        <result property="msgId" column="msg_id" />
+        <result property="sendId" column="send_id" />
+        <result property="sendTime" column="send_time" />
+        <result property="recId" column="rec_id" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <insert id="insert" parameterType="UserMessage">
+        insert into user_message(rec_id,send_id,send_time,status,msg_id) 
+        values(#{recId},#{sendId},#{sendTime},#{status},#{msgId})  
+    </insert>
+    
+    <select id="getAllUserMessagesByRecId" parameterType="String" resultMap="userMessageMapper">
+					select u.login_name,u.avatar,m.title,m.content,m.attachment1,m.attachment2,m.attachment3,um.* 
+					from user_message um, users u,message m  where u.id=um.send_id and m.id=um.msg_id 
+					and um.rec_id = #{recId} 
+        order by um.status,um.id
+    </select>
+
+    <select id="getUserMessagesByRecId" parameterType="String" resultMap="userMessageMapper">
+					select u.login_name,u.avatar,m.title,m.content,m.attachment1,m.attachment2,m.attachment3,um.* 
+					from user_message um, users u,message m  where u.id=um.send_id and m.id=um.msg_id 
+					and um.rec_id = #{recId} and um.status != 2 
+					 <if test="status != null and status != '' ">
+		        	and um.status = #{status}
+		     </if>
+        order by um.status,um.id
+    </select>
+
+    <select id="getTopUserMessagesByRecId" parameterType="String" resultMap="userMessageMapper">
+        select u.login_name,u.avatar,m.title,m.content,um.* from user_message um, users u,message m
+        where u.id=um.send_id and m.id=um.msg_id and um.rec_id = #{recId} 
+        order by um.status,um.id limit 3
+    </select>
+
+    <!--  delete id="delete" parameterType="java.util.List">
+				delete from user_message where id in 
+				   <foreach collection="list" index="index" item="item" open="(" separator="," close=")"> 
+            #{item} 
+         </foreach>
+		 </delete-->
+		 
+		 <update id="delete" parameterType="String">
+					update user_message set status=2 where id in
+						<foreach collection="list" index="index" item="item" open="(" separator="," close=")"> 
+            #{item} 
+         </foreach>
+			</update>
+
+		 <select id="getUnReadCountByRecId" parameterType="String" resultType="java.lang.Integer">
+    			select count(*) from user_message where status = 0 and rec_id = #{recId} 
+    </select>
+
+    <select id="getUserMessageById" parameterType="String" resultMap="userMessageMapper">
+					select u.login_name,m.title,m.content,m.attachment1,m.attachment2,m.attachment3,um.* 
+					from user_message um, users u,message m  where u.id=um.send_id and m.id=um.msg_id and um.id = #{id} 
+        order by um.status,um.id
+    </select>
+
+    	<update id="read" parameterType="String">
+					update user_message set status=1 where id = #{id}
+			</update>
+
+</mapper>

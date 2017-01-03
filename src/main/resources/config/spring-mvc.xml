@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+
+	<!-- 扫描controller（controller层注入） -->
+	<context:component-scan base-package="com.mullet.backend.controller" />
+	<!-- context:component-scan base-package="com.mullet.backend.websocket"  -->
+
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/" />
+			<mvc:exclude-mapping path="/index.html" />
+			<mvc:exclude-mapping path="/static/**" />
+			<mvc:exclude-mapping path="/login/**" />
+			<mvc:exclude-mapping path="/layout/menus" />
+			<mvc:exclude-mapping path="/layout/header" />
+			<mvc:exclude-mapping path="/layout/footer.jsp" />
+			<mvc:exclude-mapping path="/datatables/language/zh" />
+			<mvc:exclude-mapping path="/websocket/**" />
+			<bean class="com.mullet.backend.log.UserLogInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+
+    <bean name="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration" init-method="init">
+		<property name="configFileResource" value="classpath:config/beetl.properties" />
+	</bean>
+
+	<bean name="beetlViewResolver" class="org.beetl.ext.spring.BeetlSpringViewResolver">
+		<!-- 多视图解析器，需要设置viewNames和order -->
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".html" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="order" value="0" />
+		<!-- 多GroupTemplate，需要指定使用的bean -->
+		<property name="config" ref="beetlConfig" />
+	</bean>
+
+	<!-- 对模型视图添加前后缀 -->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+	</bean>
+
+	<!-- 配置springMVC处理上传文件的信息 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxUploadSize" value="10485760" /><!--10M -->
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+
+	<!-- 支持Shiro对Controller的方法级AOP安全控制 ，此配置不能放到spring-shiro文件中必须放到这里begin -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<!-- 定义默认的异常处理页面 -->
+		<property name="defaultErrorView" value="error/error" />
+		<!-- 定义异常处理页面用来获取异常信息的变量名，如果不添加exceptionAttribute属性，则默认为exception -->
+		<property name="exceptionAttribute" value="exception" />
+		<!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常页面名作为值 -->
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
+				<prop key="org.apache.shiro.authz.UnauthenticatedException">error/403</prop>
+				<prop key="org.apache.shiro.session.InvalidSessionException">error/440</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	<!-- 支持Shiro对Controller的方法级AOP安全控制 end -->
+
+</beans>

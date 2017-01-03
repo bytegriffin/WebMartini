@@ -1,0 +1,137 @@
+    <head>
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="expires" content="0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="static/css/animate.min.css" />
+    </head>
+
+<div class="top_nav">
+          <div class="nav_menu">
+            <nav class="" role="navigation">
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="mail_list_column">
+                  <a href="javascript:;" class="user-profile dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
+                    <%if (isNotEmpty(user.avatar)){ %>
+																<img id="avatar_samll" src="${user.avatar}" >
+														<% }else{ %>
+																<img id="avatar_samll" src="static/images/avatar.png" >
+														<% } %> 
+                    ${user.loginName}
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:void(0);" onclick="loadprofile();">&nbsp;个人设置</a></li>
+                    <li><a href="logout"><i class="fa fa-sign-out pull-right"></i>&nbsp;登 出</a></li>
+                  </ul>
+                </li>
+
+                
+               <li role="presentation" class="dropdown mail_list_column">
+
+		                  <a id="msgcount" href="javascript:void(0);" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+		                  </a>
+                  
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+
+                   <% for(cur in UserMessageList!){ %>
+	                    <li>
+	                      <a onclick="viewmsg(${cur.id});" >
+	                        <span class="image">
+	                         		<%if (isNotEmpty(cur.avatar)){ %>
+																					<img src="${cur.avatar}"  alt="头像"  />
+																			<% }else{ %>
+																					<img src="static/images/avatar.png" alt="头像"  />
+																			<% } %>
+	                        </span>
+	                        <span>
+	                          <span>${cur.loginName}</span>
+	                          <span class="time">${cur.sendTime}</span>
+	                        </span>
+	                        <span class="message">
+	                          ${cur.title} <br />
+	                          ${cur.content}
+	                        </span>
+	                      </a>
+	                    </li>
+                    								<% } %> 
+                    <li>
+                      <div class="text-center">
+                          <%if (UserMessageList.~size != 0){%><a onclick="viewallmsg();"><strong>查看所有站内信</strong><i class="fa fa-angle-right"></i> </a><% } %>
+                          <%if (UserMessageList.~size == 0){%><a ><strong>没有任何消息</strong> </a><% } %>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                
+                <li role="presentation" class="dropdown mail_list_column">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell-o animated swing"></i>
+                    <span class="badge bg-green">3</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                 								
+                    <li>
+                      <a>
+                        <span class="image"></span>
+                        <span>
+                          <span><div id="state" name="state">d</div> 	John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+<!--[if !IE]> -->
+<script type="text/javascript">
+	window.jQuery || document.write("<script src='static/js/jquery.min.js'>"	+ "<"+"/script>");
+</script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+   window.jQuery || document.write("<script src='static/js/jquery1x.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript">
+
+loadcount();
+
+function loadcount(){
+	$.ajax({
+	    type:"get",
+	    url:"user/message/count?v="+Math.random(),
+	    cache:false,
+	    success:function(msg){
+	 	     if(msg > 0){
+	 	    	   $("#msgcount").empty();
+	 		      $("#msgcount").append("<i class='fa fa-envelope-o animated flash'></i> <span class='badge bg-blue'>"+msg+"</span>");
+	 		 	  }else{
+	 		 				$("#msgcount").empty();
+	 		 		   $("#msgcount").append("<i class='fa fa-envelope-o'></i>");
+	 		 	     }
+	          }
+      }); 
+}
+
+</script>

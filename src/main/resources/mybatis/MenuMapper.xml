@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.mullet.backend.dao.MenuDao">
+
+    <resultMap id="menuMapper" type="Menu">
+        <id property="id" column="id" />
+        <result property="parentId" column="parent_id" />
+        <result property="name" column="name" />
+        <result property="url" column="url" />
+        <result property="icon" column="icon" />
+        <result property="priority" column="priority" />
+        <result property="levels" column="levels" />
+        <result property="status" column="status" />
+        <result property="description" column="description" />
+        <result property="code" column="code" />
+    </resultMap>
+
+    <select id="getMaxCode" parameterType="String" resultMap="menuMapper">
+    			<if test="parentId == 0 ">
+		        	select max(code) as code,'0000' as parentCode from menu where parent_id=0
+		     </if>
+		     <if test="parentId != 0 ">
+		        	select max(a.code) as code,b.code as parentCode from menu a,menu b where a.parent_id=b.id and a.parent_id=#{parentId}    
+		     </if>
+    </select>
+
+    <select id="getEditMenus" parameterType="String" resultMap="menuMapper">
+        select * from menu where 1=1 and code not like '${code}%'
+         order by code,priority
+    </select>
+
+    <select id="suggest" parameterType="String" resultMap="menuMapper">
+        select distinct ${param1} from menu where 1=1 
+        and name like '%${param2}%' order by name asc limit 0,10
+    </select>
+
+    <select id="getMenus" parameterType="String" resultMap="menuMapper">
+        select * from menu where 1=1
+        <if test="searchValue != null and searchValue != '' ">
+		        	and name like '%${searchValue}%'
+		     </if>
+        order by parent_id,priority
+    </select>
+
+    <select id="getEnabledMenus" parameterType="String" resultMap="menuMapper">
+			    SELECT * FROM (
+								select m.* from roles r, user_role ur,menu_role mr,menu m where 
+										  r.id=ur.role_id and r.id=mr.role_id and m.status=1 
+										 and mr.menu_id=m.id and ur.user_id=#{userId}
+							 union  
+								select m.* from groups g, group_user gu,group_role gr,roles r,menu_role mr,menu m where 
+										 gu.group_id=g.id and gr.group_id=g.id and gr.role_id=r.id  
+										and r.id=mr.role_id and mr.menu_id=m.id and m.status=1 and gu.user_id=#{userId} ) 
+					 AS MENU  order by MENU.levels,MENU.priority 
+    </select>
+
+    <update id="editMenuStatus" parameterType="String">
+				update  menu set status=#{param2} where id = #{param1}
+			</update>
+
+    <select id="getExistCount" parameterType="String" resultType="java.lang.Integer">
+    			select count(*) from menu where 1=1 
+    			<if test="param2=='name'">
+        			and name=#{param3}
+        </if>
+        <if test="param2=='url'">
+        			and url=#{param3}
+        </if>
+        <if test="param2=='priority'">
+        			and priority=#{param3}
+        </if>
+        <if test=" param1 != null and param1 != '' "> 
+        			and id	!= #{param1}
+        </if>
+    </select>
+
+    <insert id="insertMenu" parameterType="Menu">
+        insert into menu(parent_id,name,code,url,icon,priority,status,levels,description) 
+        values(#{parentId},#{name},#{code},#{url},#{icon},#{priority},#{status},#{levels},#{description})  
+    </insert>
+
+    <insert id="insertMenus" parameterType="Menu">
+        insert into menu(parent_id, code, status, name, url, levels, priority, description)    
+        values 
+        <foreach collection="list" index="index" item="item"  separator="," > 
+        		(#{item.parentId}, #{item.code}, #{item.status}, #{item.name}, #{item.url}, #{item.levels}, #{item.priority}, #{item.description})  
+        </foreach>
+    </insert>
+
+    <select id="getMenuById" parameterType="String" resultMap="menuMapper">
+        select * from menu where id=#{id}     
+    </select>
+
+    <select id="getChildMenus" parameterType="String" resultMap="menuMapper">
+        select * from menu where 1=1 and code like '${code}%' and code != #{code} order by code,priority
+    </select>
+
+    <update id="editMenu" parameterType="Menu">
+			   update menu set 
+			   	parent_id	= #{parentId},name	= #{name},url	= #{url},icon	= #{icon},
+			   	code	= #{code},priority	= #{priority},status	= #{status},
+			   	levels	= #{levels},description	= #{description} 
+				   WHERE id=#{id}
+			</update>
+
+		<select id="getChildCount" parameterType="String" resultType="java.lang.Integer">
+       select count(*) from menu where code like  '${code}%'
+    </select>
+
+		<delete id="delMenu" parameterType="String">
+				delete from menu where id = #{id}
+		</delete>
+
+		<delete id="delMenuRole" parameterType="String">
+				delete from menu_role where menu_id = #{id}
+		</delete>
+
+</mapper>

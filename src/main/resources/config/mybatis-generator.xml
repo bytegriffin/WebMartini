@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+      PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+      "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- mybatis-generator插件生成代码的配置文件 -->
+<generatorConfiguration>
+	<classPathEntry
+		location="/home/griffin/.m2/repository/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar" />
+
+	<context id="MySQLTables" targetRuntime="MyBatis3">
+		<!--关闭注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/mullet?useUnicode=true&amp;characterEncoding=utf-8"
+			userId="root" password="root" />
+
+		<!-- java类型处理器，默认的就这么一个处理器可以用，可以自己写，具体的请参考官方文档http://code.google.com/p/mybatis/wiki/Generator -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 生成 Model，POJO -->
+		<javaModelGenerator targetPackage="com.mullet.frontend.entity"	targetProject="/opt/workspace/shop_mullet/src/main/java/">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 生成映射文件*.xml -->
+		<sqlMapGenerator targetPackage="mappers" targetProject="/opt/workspace/shop_mullet/src/main/java/resources/mybatis">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成映射器类 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.mullet.frontend.dao" targetProject="/opt/workspace/shop_mullet/src/main/">
+				<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 指定要生成的表名和对应形成的POJO类名 -->
+		<table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false"	enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<columnRenamingRule searchString="_"	replaceString="" />
+		</table>
+	</context>
+</generatorConfiguration>
