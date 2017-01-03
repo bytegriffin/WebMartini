@@ -26,7 +26,7 @@
 		<itextpdf.version>5.5.10</itextpdf.version>
 		<itext-asian.version>5.2.0</itext-asian.version>
 		<useragent.version>1.20</useragent.version>
-		<mybatis.version>1.1.1</mybatis.version>
+		<mybatis.version>1.2.0</mybatis.version>
 		<shiro.version>1.4.0-RC2</shiro.version>
 		<pagehelper.version>4.2.1</pagehelper.version>
 		<nekohtml.version>1.9.22</nekohtml.version>
