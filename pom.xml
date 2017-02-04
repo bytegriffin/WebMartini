@@ -14,23 +14,23 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.3.RELEASE</version>
+		<version>1.5.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<fileupload.version>1.3.2</fileupload.version>
-		<aspectj.version>1.8.9</aspectj.version>
+		<aspectj.version>1.8.10</aspectj.version>
 		<commons-io.version>2.5</commons-io.version>
 		<poi.version>3.15</poi.version>
 		<itextpdf.version>5.5.10</itextpdf.version>
 		<itext-asian.version>5.2.0</itext-asian.version>
 		<useragent.version>1.20</useragent.version>
 		<mybatis.version>1.2.0</mybatis.version>
-		<shiro.version>1.4.0-RC2</shiro.version>
+		<shiro.version>1.3.2</shiro.version>
 		<pagehelper.version>4.2.1</pagehelper.version>
 		<nekohtml.version>1.9.22</nekohtml.version>
-		<hikaricp.version>2.5.1</hikaricp.version>
+		<hikaricp.version>2.6.0</hikaricp.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
