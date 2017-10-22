@@ -1,7 +1,7 @@
 /* ENGINE=InnoDB DEFAULT CHARSET=utf8; */
 
 
-INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (1, 0, '0001', '控制台',  'dashboard', 1, 1,'fa-dashboard','1');
+INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (1, 0, '0001', '控制台',  'user/dashboard', 1, 1,'fa-dashboard','1');
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (2, 0, '0002', '系统管理',  '', 2,1,'fa-desktop','1');
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (3, 2, '00020001', '用户管理',  'user/list', 1,2,'fa-user','1');
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (4, 2, '00020002', '组织管理',  'group/list', 2,2,'fa-sitemap','1');

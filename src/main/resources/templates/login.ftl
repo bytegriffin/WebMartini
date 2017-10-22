@@ -1,12 +1,12 @@
 <#include "/layout/header.ftl">  
 <@header />
-<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="/css/nprogress.css" />
-<link rel="stylesheet" type="text/css" href="/css/animate.min.css" />
-<link rel="stylesheet" type="text/css" href="/css/icheck/green.css" />
-<link rel="stylesheet" type="text/css" href="/css/layer.css" />
-<link rel="stylesheet" type="text/css" href="/css/custom.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/nprogress.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/icheck/green.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/layer.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/custom.css" />
 </head>
 
 <body class="login">
@@ -101,33 +101,33 @@
 
 <!--[if !IE]> -->
 <script type="text/javascript">
-	window.jQuery || document.write("<script src='/js/jquery.min.js'>"	+ "<"+"/script>");
+	window.jQuery || document.write("<script src='${request.contextPath}/js/jquery.min.js'>"	+ "<"+"/script>");
 </script>
 <!-- <![endif]-->
 <!--[if IE]>
 <script type="text/javascript">
-   window.jQuery || document.write("<script src='/js/jquery1x.js'>"+"<"+"/script>");
+   window.jQuery || document.write("<script src='${request.contextPath}/js/jquery1x.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/nprogress.js"></script>
-<script src="/js/jquery.backstretch.min.js"></script>
-<script src="/js/icheck.min.js"></script>
-<script src="/js/jquery-html5Validate.js"></script>
-<script src="/js/layer.js"></script>
-<script src="/js/jquery.placeholder.min.js"></script>
+<script src="${request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${request.contextPath}/js/nprogress.js"></script>
+<script src="${request.contextPath}/js/jquery.backstretch.min.js"></script>
+<script src="${request.contextPath}/js/icheck.min.js"></script>
+<script src="${request.contextPath}/js/jquery-html5Validate.js"></script>
+<script src="${request.contextPath}/js/layer.js"></script>
+<script src="${request.contextPath}/js/jquery.placeholder.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	  NProgress.configure({ ease: 'ease', speed: 1000, showSpinner: false });
 	  NProgress.start();
 	  $('input').placeholder();
 	  //$(".container").css({ opacity: .8 });  //设置透明度
-	  /* $.backstretch(["/images/login-1.jpg",
-	                 "/images/login-2.jpg",
-	                 "/images/login-3.jpg",
-	                 "/images/login-4.jpg",
-	                 "/images/login-5.jpg",
-	                 "/images/login-6.jpg"],{duration:4000}); //元素背景，切换现实 */
+	  /* $.backstretch(["${request.contextPath}/images/login-1.jpg",
+	                 "${request.contextPath}/images/login-2.jpg",
+	                 "${request.contextPath}/images/login-3.jpg",
+	                 "${request.contextPath}/images/login-4.jpg",
+	                 "${request.contextPath}/images/login-5.jpg",
+	                 "${request.contextPath}/images/login-6.jpg"],{duration:4000}); //元素背景，切换现实 */
 	  $("#forget_form").hide();
 	  $("#login_form").show();
 	  reloadVerifyCode();

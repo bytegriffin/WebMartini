@@ -3,11 +3,11 @@
 <#include "/layout/footer.ftl">  
 
 <@header />
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/custom.css" />
-<link rel="stylesheet" href="/css/nprogress.css" />
-<link rel="stylesheet" href="/css/animate.min.css" />
+<link rel="stylesheet" href="${request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${request.contextPath}/css/font-awesome.min.css">
+<link rel="stylesheet" href="${request.contextPath}/css/custom.css" />
+<link rel="stylesheet" href="${request.contextPath}/css/nprogress.css" />
+<link rel="stylesheet" href="${request.contextPath}/css/animate.min.css" />
 </head>
 
 <body id="body" class="nav-md"  oncontextmenu="return false" >
@@ -27,9 +27,9 @@
                 <li class="mail_list_column">
                   <a href="javascript:;" class="user-profile dropdown-toggle " data-toggle="dropdown" aria-expanded="false">
                     <#if cur.avatar??> 
-						<img src="${cur.avatar}" id="avatar_samll" alt="头像"  />
+						<img src="${request.contextPath}/${cur.avatar}" id="avatar_samll" alt="头像"  />
 					<#else>
-						<img src="/images/avatar.png" id="avatar_samll" alt="头像"  />
+						<img src="${request.contextPath}/images/avatar.png" id="avatar_samll" alt="头像"  />
 					</#if>
                     ${user.loginName}
                     <span class=" fa fa-angle-down"></span>
@@ -51,9 +51,9 @@
 	                      <a onclick="viewmsg(${cur.id});" >
 	                        <span class="image">
 	                         		<#if cur.avatar??> 
-											<img src="${cur.avatar}"  alt="头像"  />
+											<img src="${request.contextPath}/${cur.avatar}"  alt="头像"  />
 									<#else>
-											<img src="/images/avatar.png" alt="头像"  />
+											<img src="${request.contextPath}/images/avatar.png" alt="头像"  />
 									</#if>
 	                        </span>
 	                        <span>
@@ -113,7 +113,7 @@
         <!-- /top navigation -->
 
 		<div class="right_col" role="main">
-			<iframe name="mainFrame" id="mainFrame" src="/user/dashboard" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="padding: 0px; width: 100%; height: 1000px;" class="nav-md footer_fixed"></iframe>
+			<iframe name="mainFrame" id="mainFrame" src="${request.contextPath}/user/dashboard" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="padding: 0px; width: 100%; height: 1000px;" class="nav-md footer_fixed"></iframe>
 		</div>
 
 <@footer /> 
@@ -123,19 +123,19 @@
 
 <!--[if !IE]> -->
 <script type="text/javascript">
-	window.jQuery || document.write("<script src='/js/jquery.min.js'>"	+ "<"+"/script>");
+	window.jQuery || document.write("<script src='${request.contextPath}/js/jquery.min.js'>"	+ "<"+"/script>");
 </script>
 <!-- <![endif]-->
 <!--[if IE]>
 <script type="text/javascript">
- window.jQuery || document.write("<script src='/js/jquery1x.js'>"+"<"+"/script>");
+ window.jQuery || document.write("<script src='${request.contextPath}/js/jquery1x.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/custom.js"></script>
-<script type="text/javascript" src="/js/nprogress.js"></script>
-<script type="text/javascript" src="/js/jquery.nicescroll.min.js"></script>
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/custom.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/nprogress.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 
 <script type="text/javascript">
 
@@ -153,7 +153,7 @@ loadcount();
 function loadcount(){
 	$.ajax({
 	    type:"get",
-	    url:"/user/message/count?v="+Math.random(),
+	    url:"${request.contextPath}/user/message/count?v="+Math.random(),
 	    cache:false,
 	    success:function(msg){
 	 	     if(msg > 0){
@@ -189,21 +189,21 @@ function loadframe(id,fid,url){
 
 function loadprofile(){
 	  NProgress.start();
-		$("#mainFrame").attr("src","/user/profile");
+		$("#mainFrame").attr("src","${request.contextPath}/user/profile");
 		$("#mainFrame").attr("class","animated fadeIn");
 		NProgress.done();
 }
 
 function viewallmsg(){
 	  NProgress.start();
-		$("#mainFrame").attr("src","/user/message");
+		$("#mainFrame").attr("src","${request.contextPath}/user/message");
 		$("#mainFrame").attr("class","animated fadeIn");
 		NProgress.done();
 }
 
 function viewmsg(id){
 	  NProgress.start();
-		$("#mainFrame").attr("src","/user/message/view/"+id);
+		$("#mainFrame").attr("src","${request.contextPath}/user/message/view/"+id);
 		$("#mainFrame").attr("class","animated fadeIn");
 		NProgress.done();
 }

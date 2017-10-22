@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${site_name}</title>
 <!-- CSS -->
-<link rel="shortcut icon" href="/images/favicon.ico"  />
-<link rel="bookmark" href="/images/favicon.ico" />
+<link rel="shortcut icon" href="${request.contextPath}/images/favicon.ico"  />
+<link rel="bookmark" href="${request.contextPath}/images/favicon.ico" />
 
 </#macro>
