@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.DispatcherType;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
@@ -49,7 +48,7 @@ public class ShiroConfig {
 		manager.setCacheManager(cacheManager());
 		manager.setSessionManager(sessionManager());
 		manager.setRememberMeManager(rememberMeManager());
-		SecurityUtils.setSecurityManager(manager);
+//		SecurityUtils.setSecurityManager(manager);
 		return manager;
 	}
 

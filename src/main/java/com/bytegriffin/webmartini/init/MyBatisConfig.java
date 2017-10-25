@@ -88,18 +88,18 @@ public class MyBatisConfig {
 		sessionFactory.setConfiguration(configuration);
 
 		//分页插件
-        PageHelper pageHelper = new PageHelper();
-        Properties properties = new Properties();
-        properties.setProperty("dialect", "mysql");
-        properties.setProperty("offsetAsPageNum", "true");
-        properties.setProperty("rowBoundsWithCount", "true");
-        properties.setProperty("pageSizeZero", "true");
-        properties.setProperty("reasonable", "false");
-        properties.setProperty("params", "pageNum=pageHelperStart;pageSize=pageHelperRows;");
-        properties.setProperty("supportMethodsArguments", "false");
-        properties.setProperty("returnPageInfo", "none");
-        pageHelper.setProperties(properties);
-        sessionFactory.setPlugins(new Interceptor[]{pageHelper});
+//        PageHelper pageHelper = new PageHelper();
+//        Properties properties = new Properties();
+//        properties.setProperty("dialect", "mysql");
+//        properties.setProperty("offsetAsPageNum", "true");
+//        properties.setProperty("rowBoundsWithCount", "true");
+//        properties.setProperty("pageSizeZero", "true");
+//        properties.setProperty("reasonable", "false");
+//        properties.setProperty("params", "pageNum=pageHelperStart;pageSize=pageHelperRows;");
+//        properties.setProperty("supportMethodsArguments", "false");
+//        properties.setProperty("returnPageInfo", "none");
+//        pageHelper.setProperties(properties);
+//        sessionFactory.setPlugins(new Interceptor[]{pageHelper});
 
         return sessionFactory.getObject();
     }

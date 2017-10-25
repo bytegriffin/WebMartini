@@ -44,12 +44,12 @@ public class SiteConfig {
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer(Environment env) {
 		PropertySourcesPlaceholderConfigurer pspc = new PropertySourcesPlaceholderConfigurer();
-		MYBATIS_PACKAGES = env.getProperty("mybatis.type-aliases-package", "com.webmartini.domain");
-		MYBATIS_MAPPER_LOCATION = env.getProperty("mybatis.mapper-locations", "classpath*:/mybatis/*Mapper.xml");
+		MYBATIS_PACKAGES = env.getProperty("mybatis.type-aliases-package", "com.bytegriffin.webmartini.domain");
+		MYBATIS_MAPPER_LOCATION = env.getProperty("mybatis.mapper-locations", "classpath*:/mybatis/*.xml");
 		EHCACHE_CONFIG = env.getProperty("spring.cache.ehcache.config", "classpath:ehcache.xml");
 		
 		SHIRO_CREDENTIALS_SALT = env.getProperty("site.shiro.credentials-salt", "webmartini");
-		SHIRO_GLOBAL_SESSION_TIMEOUT = Long.valueOf(env.getProperty("site.shiro.global-session-timeout", "1800000L"));
+		SHIRO_GLOBAL_SESSION_TIMEOUT = Long.valueOf(env.getProperty("site.shiro.global-session-timeout", "1800000"));
 		SHIRO_COOKIE_MAX_AGE = Integer.valueOf(env.getProperty("site.shiro.cookie-max-age", "180000"));
 		SHIRO_REMEMBERME_COOKIE_MAX_AGE = Integer.valueOf(env.getProperty("site.shiro.rememberme-cookie-max-age", "864000"));
 		SHIRO_ACTIVE_SESSION_CACHE_NAME = env.getProperty("site.shiro.active-sessions-cache-name", "shiro-activeSessionCache");
