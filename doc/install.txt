@@ -1,7 +1,7 @@
 1.如果要让springboot创建库的话，需要事先在mysql中手工创建webmartini数据库，当然也可以完全手工创建并导入数据。
   相关文件：resource/db/schema.sql, resource/db/data.sql
 2.本地运行：直接运行WebMartini 或者运行 mvn spring-boot:run
-  也可部署到外部容器里
-3.
+  也可部署到外部容器里：mvn clean package，去target目录下将war包部署到tomcat下即可。
+3.本项目无需web.xml配置文件
 
 
