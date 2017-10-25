@@ -55,7 +55,7 @@ public class UserLogController {
 	@ResponseBody
 	@RequiresPermissions(PermissionResource.USERLOG)
 	public DataTablesPage<UserLog> searchError(HttpServletRequest request) {
-		return userlogPage(request);
+		return userlogErrorPage(request);
 	}
 
 	@RequestMapping("/userlog/page")
