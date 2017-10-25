@@ -2,12 +2,10 @@ package com.bytegriffin.webmartini.init;
 
 import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.AutoMappingBehavior;
 import org.apache.ibatis.session.LocalCacheScope;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -21,11 +19,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.github.pagehelper.PageHelper;
-
 @Configuration 
 @EnableTransactionManagement // 该注解类似于<tx:annotation-driven />
-@MapperScan(basePackages="com.webmartini.mapper")
+@MapperScan(basePackages="com.bytegriffin.webmartini.mapper")
 public class MyBatisConfig {
 
 //    @Bean(destroyMethod = "shutdown", name="dataSource")
