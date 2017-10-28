@@ -17,7 +17,7 @@
 			},
 			async: {
 				enable: true,
-				url:"/role/tree",
+				url:"${request.contextPath}/role/tree",
 				autoParam: ["id"],
 				dataType:"json",
 				dataFilter: filter
@@ -28,7 +28,7 @@
 	};
 	
 	function onClick(e, treeId, treeNode) {
-		dtTable.ajax.url('/role/page?code='+treeNode.code).load();
+		dtTable.ajax.url('${request.contextPath}/role/page?code='+treeNode.code).load();
 	}
 
 	function filter(treeId, parentNode, childNodes) {
@@ -66,14 +66,11 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-
-							 					<div class="x_content">
-							 					
-							 							<div ><ul id="treeDemo" class="ztree"></ul></div>
-							 						
-							 					</div>
-							 	</div>
-					</div>
+	 					<div class="x_content">
+	 							<div ><ul id="treeDemo" class="ztree"></ul></div>
+	 					</div>
+				 	</div>
+			</div>
 
      	<div class="col-md-8 col-sm-8 col-xs-12">
                 <div class="x_panel">
@@ -85,11 +82,8 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-
-							 					<div class="x_content">
-
-							<form id="search_form" role="form" class="row form-horizontal form-label-left">
-				
+			<div class="x_content">
+				<form id="search_form" role="form" class="row form-horizontal form-label-left">
 	               <div class=" btn-group col-md-12 col-sm-12 col-xs-12">
 	              				 <div class="btn-group">
 						                 <button id="add" type="button" class="btn btn-success" >
@@ -128,7 +122,6 @@
 														<tbody></tbody>
 														<!-- tbody是必须的 -->
 													</table>
-	 						
 							</div>
 				</div>			
   </div>
@@ -137,7 +130,7 @@
 $.fn.dataTable.ext.errMode = 'throw';
 var dtTable = $('#data-tables').DataTable({
  		  responsive: true,//自适应宽度，适合手机
-     language:{url:"/js/datatables_zh.json"},
+     language:{url:"${request.contextPath}/js/datatables_zh.json"},
      processing: false,
      serverSide: true,
      autoWidth: true,
@@ -145,10 +138,10 @@ var dtTable = $('#data-tables').DataTable({
      lengthMenu:[10,30,50],
      searching: false,
    　 order: [[1, "asc"]], //默认排序
-     ajax: { url:"/role/page", type:"post" },
+     ajax: { url:"${request.contextPath}/role/page", type:"post" },
      columns: [
-				  { "data": "num" ,"orderable":false,width:70,className: "text-center"},
-	       { data: "id",visible:false },
+		{ "data": "num" ,"orderable":false,width:70,className: "text-center"},
+	    { data: "id",visible:false },
         { data: "name",width:150 },
         { data: "description","orderable":false,width:200,
         	render: function(data, type, full) {
@@ -187,7 +180,7 @@ function del(id){
 		}, function(index){
 			$.ajax({
 	      type:"get",
-	      url:'/role/delete/'+id,
+	      url:'${request.contextPath}/role/delete/'+id,
 	      success:function(msg){
       			if(msg=="true"){
 	      			 $.fn.zTree.getZTreeObj("treeDemo").reAsyncChildNodes(null, "refresh");
@@ -213,7 +206,7 @@ function edit(id){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area_small,
 		  offset: custom_offset,
-		  content: ['/role/edit/'+id, 'no']
+		  content: ['${request.contextPath}/role/edit/'+id, 'no']
 		}); 
 }
 
@@ -226,7 +219,7 @@ function authMenu(id){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
 		  offset: custom_offset,
-		  content: ['/role/menu/'+id, 'no']
+		  content: ['${request.contextPath}/role/menu/'+id, 'no']
 		}); 
 }
 
@@ -239,7 +232,7 @@ function authUser(id){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area_small,
 		  offset: custom_offset,
-		  content: ['/role/user/'+id, 'no']
+		  content: ['${request.contextPath}/role/user/'+id, 'no']
 		}); 
 }
 
@@ -252,7 +245,7 @@ function authGroup(id){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
 		  offset: custom_offset,
-		  content: ['/role/group/'+id, 'no']
+		  content: ['${request.contextPath}/role/group/'+id, 'no']
 		}); 
 }
 
@@ -266,20 +259,20 @@ $("#add").click(function(){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area_small,
 		  offset: custom_offset,
-		  content: ['/role/add', 'no']
+		  content: ['${request.contextPath}/role/add', 'no']
 		}); 
 });
 
 //搜索
 $("#search").click(function(){
 		var searchValue = $.trim($("#searchKey").val());
-		dtTable.ajax.url('/role/search?searchValue='+searchValue).load();
+		dtTable.ajax.url('${request.contextPath}/role/search?searchValue='+searchValue).load();
 });	
 
 //搜索建议
 $('#searchKey').typeahead({
 	ajax: {
-     url: '/role/suggest?t='+(new Date()).getTime(),
+     url: '${request.contextPath}/role/suggest?t='+(new Date()).getTime(),
      timeout: 300, // 延时
      method: 'post',//中文参数必须要用POST
      triggerLength: 1, // 输入几个字符之后，开始请求
@@ -300,7 +293,7 @@ $('#searchKey').typeahead({
 
 //刷新列表
 $("#refresh").click(function(){
-	dtTable.ajax.url('/role/page?t='+(new Date()).getTime()).load();
+	dtTable.ajax.url('${request.contextPath}/role/page?t='+(new Date()).getTime()).load();
 });
 
 //上传excel
@@ -312,21 +305,21 @@ $("#upload").click(function(){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
 		  offset: custom_offset,
-		  content: ['/role/import/excel', 'no']
+		  content: ['${request.contextPath}/role/import/excel', 'no']
 		}); 
 });
 
 //导出excel
 $("#exp_excel").click(function(){
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/role/export/excel?searchValue="+searchValue;
+	location.href = "${request.contextPath}/role/export/excel?searchValue="+searchValue;
 	alertSuccess();
 });
 
 //导出pdf
 $("#exp_pdf").click(function(){
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/role/export/pdf?searchValue="+searchValue;
+	location.href = "${request.contextPath}/role/export/pdf?searchValue="+searchValue;
 	alertSuccess();
 });
 </script>

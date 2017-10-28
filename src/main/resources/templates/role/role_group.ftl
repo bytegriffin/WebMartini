@@ -21,7 +21,7 @@ var setting = {
 	   },
 	async: {
 			enable: true,
-			url:"/role/group_tree/"+${role_id},
+			url:"${request.contextPath}/role/group_tree/"+${role_id},
 			autoParam: ["id"],
 			dataType:"json",
 			dataFilter: filter
@@ -61,7 +61,7 @@ $(document).ready(function(){
 		 	 }
 		  $.ajax({ 
        type: "post", 
-       url: "/role/group_ref", 
+       url: "${request.contextPath}/role/group_ref", 
        data: {"group_ids" : nodestr,"role_id":${role_id}}, 
        success: function (data) { 
     	   	var index = parent.layer.getFrameIndex(window.name); 

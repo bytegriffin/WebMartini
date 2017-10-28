@@ -2,7 +2,7 @@
 <#include "/layout/form.ftl">  
 <@header />
 <@form />
-<link rel="stylesheet" href="/css/fileinput.min.css" />
+<link rel="stylesheet" href="${request.contextPath}/css/fileinput.min.css" />
 
 </head>
 <body id="body" style="background:#F7F7F7;" >
@@ -10,22 +10,22 @@
 
 <div class="x_panel">
 	<div class="x_conten" >
-				<h4>请先下载<a href="/template/role.xlsx" class="green">模板</a>，再进行上传。</h4>
+				<h4>请先下载<a href="${request.contextPath}/template/role.xlsx" class="green">模板</a>，再进行上传。</h4>
 				<div id="kv-avatar-errors" class="center-block" style="display:none" role="alert"></div>
-				<form class="text-center" action="/role/import/excel" method="post" enctype="multipart/form-data">
+				<form class="text-center" action="${request.contextPath}/role/import/excel" method="post" enctype="multipart/form-data">
 						<input id="input-repl-1a" name="file" type="file" class="file-loading" accept=".xls,.xlsx">		
 				</form>
 	</div>
 </div>
 
-<script type="text/javascript" src="/js/layer.js"></script>
-<script type="text/javascript" src="/js/layer-plugin.js"></script>
-<script type="text/javascript" src="/js/fileinput.min.js"></script>
-<script type="text/javascript" src="/js/fileinput.zh.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/layer.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/layer-plugin.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/fileinput.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/fileinput.zh.js"></script>
 <script type="text/javascript">
 $("#input-repl-1a").fileinput({
 	 language:"zh",
-   uploadUrl: "/role/import/excel",
+   uploadUrl: "${request.contextPath}/role/import/excel",
    uploadAsync:true,
    autoReplace: true,
    overwriteInitial: true,

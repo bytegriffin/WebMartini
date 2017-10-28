@@ -2,7 +2,7 @@
 <#include "/layout/form.ftl">  
 <@header />
 <@form />
-<link rel="stylesheet" type="text/css" href="/css/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/animate.min.css" />
 </head>
 <body id="body" style="background:#F7F7F7;" class="animated fadeInRigth">
 <div class="page-title">
@@ -64,16 +64,16 @@
 							 					</div>
 					</div>
 
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 <script type="text/javascript">
 function download1(){
-	 location.href="/message/download?url=${message.attachment1}";
+	 location.href="${request.contextPath}/message/download?url=${message.attachment1}";
 }
 function download2(){
-	 location.href="/message/download?url=${message.attachment2}";
+	 location.href="${request.contextPath}/message/download?url=${message.attachment2}";
 }
 function download3(){
-	 location.href="/message/download?url=${message.attachment3}";
+	 location.href="${request.contextPath}/message/download?url=${message.attachment3}";
 }
 </script>  
 </body>

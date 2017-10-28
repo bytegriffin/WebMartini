@@ -66,7 +66,7 @@
 							 					</div>
 					</div>
 
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 <script type="text/javascript">
 
 </script>  

@@ -87,7 +87,7 @@
 $.fn.dataTable.ext.errMode = 'throw';
 var dtTable = $('#data-tables').DataTable({
     responsive: true,//自适应宽度，适合手机
-    language:{url:"/js/datatables_zh.json"},
+    language:{url:"${request.contextPath}/js/datatables_zh.json"},
     processing: false,
     serverSide: true,
     autoWidth: true,
@@ -95,7 +95,7 @@ var dtTable = $('#data-tables').DataTable({
     lengthMenu:[10,30,50],
     searching: false,
   　 order: [[1, "desc"]], //默认排序
-    ajax: { url:"/user/page", type:"post" },
+    ajax: { url:"${request.contextPath}/user/page", type:"post" },
     columns: [
 				 { data: "id", className: "text-center",orderable:false,width:30,
 			 	   render: function(data, type, full) {
@@ -158,7 +158,7 @@ function del(id){
 		}, function(index){
 			$.ajax({
 	      type:"get",
-	      url:'/user/delete/'+id,
+	      url:'${request.contextPath}/user/delete/'+id,
 	      success:function(msg){
       		if(msg){
       			dtTable.draw(false);//保持当前分页信息
@@ -182,7 +182,7 @@ function edit(id){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
 		  offset: custom_offset,
-		  content: ['/user/edit/'+id, 'no']
+		  content: ['${request.contextPath}/user/edit/'+id, 'no']
 		}); 
 }
 
@@ -195,7 +195,7 @@ function change_status(id,value){
 		}
 	 $.ajax({
 	    type:"get",
-	    url:'/user/status?id='+id+"&status="+value+"&t="+(new Date()).getTime()
+	    url:'${request.contextPath}/user/status?id='+id+"&status="+value+"&t="+(new Date()).getTime()
       });
 }
 
@@ -204,7 +204,7 @@ $("#add").click(function(){
 	 layer.open({
 		  type: 2,
 		  title: '新增用户',
-		  content: ['/user/add', 'no'],
+		  content: ['${request.contextPath}/user/add', 'no'],
 		  skin: custom_skin,//边框
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
@@ -215,9 +215,9 @@ $("#add").click(function(){
 //批量删除
 $("#delAll").click(function(){
 	 if($("input[name='table_records']").is(':checked')==false){
-			　alertError("请至少选择一项");
-			 return false;
-	    }
+		alertError("请至少选择一项");
+		return false;
+	 }
 	 var id_array = new Array();  
 	 $('input[name="table_records"]:checked').each(function(){
 	     id_array.push($(this).attr('id'));//向数组中添加元素  
@@ -226,13 +226,13 @@ $("#delAll").click(function(){
 	 layer.confirm('您确定要删除这些记录么？', {
 			  title: '操作提示',
 			  skin: custom_skin,//边框
-				 shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
-				 offset: custom_offset,
-				 btn: ['是的','放弃']
+			 shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
+			 offset: custom_offset,
+			 btn: ['是的','放弃']
 		}, function(index){
 			$.ajax({
 		     type:"get",
-		     url:'/user/delete/'+rowIds,
+		     url:'${request.contextPath}/user/delete/'+rowIds,
 		     success:function(msg){
 	     	   if(msg){
 		     			 dtTable.draw(false);//保持当前分页信息
@@ -251,7 +251,7 @@ $("#delAll").click(function(){
 $("#search").click(function(){
 		var selectRange = $("#selectRange option:selected").val();
 		var searchValue = $.trim($("#searchKey").val());
-		dtTable.ajax.url('/user/search?selectRange='+selectRange+"&searchValue="+searchValue).load();
+		dtTable.ajax.url('${request.contextPath}/user/search?selectRange='+selectRange+"&searchValue="+searchValue).load();
 });	
 
 //搜索建议
@@ -259,7 +259,7 @@ $('#searchKey').typeahead({
 	  ajax: {
 	     url: '/user/suggest?t='+(new Date()).getTime(),
 	     timeout: 300, // 延时
-	     method: 'post',//中文参数必须要用POST
+	     method: 'post',//中文参数必须要用POSTh1do
 	     triggerLength: 1, // 输入几个字符之后，开始请求
 	     preDispatch: function (query) {
 	        var para = { selectRange: $("#selectRange option:selected").val(), searchValue : $.trim($("#searchKey").val()) };
@@ -278,14 +278,14 @@ $('#searchKey').typeahead({
 
 //刷新列表
 $("#refresh").click(function(){
-	dtTable.ajax.url('/user/page?t='+(new Date()).getTime()).load();
+	dtTable.ajax.url('${request.contextPath}/user/page?t='+(new Date()).getTime()).load();
 });
 
 //导出excel
 $("#exp_excel").click(function(){
 	var selectRange = $("#selectRange option:selected").val();
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/user/export/excel?selectRange="+selectRange+"&searchValue="+searchValue;
+	location.href = "${request.contextPath}/user/export/excel?selectRange="+selectRange+"&searchValue="+searchValue;
 	alertSuccess();
 });
 
@@ -298,7 +298,7 @@ $("#upload").click(function(){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
 		  offset: custom_offset,
-		  content: ['/user/import/excel', 'no']
+		  content: ['${request.contextPath}/user/import/excel', 'no']
 		}); 
 });
 
@@ -306,7 +306,7 @@ $("#upload").click(function(){
 $("#exp_pdf").click(function(){
 	var selectRange = $("#selectRange option:selected").val();
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/user/export/pdf?selectRange="+selectRange+"&searchValue="+searchValue;
+	location.href = "${request.contextPath}/user/export/pdf?selectRange="+selectRange+"&searchValue="+searchValue;
 	alertSuccess();
 });
 
@@ -318,14 +318,14 @@ $("#print").click(function(){
 	$.ajax({
 		   type:"get",
 		   contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-		   url:"user/print?selectRange="+selectRange+"&searchValue="+searchValue,
+		   url:"${request.contextPath}/user/print?selectRange="+selectRange+"&searchValue="+searchValue,
 		   success:function(msg){
 				  if(msg){
 					  $("#print_table").printThis({
 						   header: msg,
 						   importCSS: true,
 						   pageTitle: "用户列表",
-						   loadCSS: "/css/bootstrap.min.css", 
+						   loadCSS: "${request.contextPath}/css/bootstrap.min.css", 
 						   importStyle: true  
 					  		});
 				      }

@@ -123,13 +123,13 @@
 
 <script type="text/javascript">
 	Chart.defaults.global.responsive = true;
-	$.getScript("/js/chartjs/line.js");
-	$.getScript("/js/chartjs/dynamic_line.js");
-	$.getScript("/js/chartjs/bar.js");
-	$.getScript("/js/chartjs/donut.js");
-	$.getScript("/js/chartjs/radar.js");	
-	$.getScript("/js/chartjs/pie.js");	
-	$.getScript("/js/chartjs/polar_area.js");	
+	$.getScript("${request.contextPath}/js/chartjs/line.js");
+	$.getScript("${request.contextPath}/js/chartjs/dynamic_line.js");
+	$.getScript("${request.contextPath}/js/chartjs/bar.js");
+	$.getScript("${request.contextPath}/js/chartjs/donut.js");
+	$.getScript("${request.contextPath}/js/chartjs/radar.js");	
+	$.getScript("${request.contextPath}/js/chartjs/pie.js");	
+	$.getScript("${request.contextPath}/js/chartjs/polar_area.js");	
 
 </script>
 </body>

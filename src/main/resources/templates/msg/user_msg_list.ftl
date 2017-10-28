@@ -76,7 +76,7 @@
 $.fn.dataTable.ext.errMode = 'throw';
 var dtTable = $('#data-tables').DataTable({
 		 responsive: true,//自适应宽度，适合手机
-    language:{url:"/js/datatables_zh.json"},
+    language:{url:"${request.contextPath}/js/datatables_zh.json"},
     processing: false,
     serverSide: true,
     autoWidth: true,
@@ -84,7 +84,7 @@ var dtTable = $('#data-tables').DataTable({
     lengthMenu:[10,30,50],
     searching: false,
   　 order: [[1, "desc"]], //默认排序
-    ajax: { url:"/user/message/page", type:"post" },
+    ajax: { url:"${request.contextPath}/user/message/page", type:"post" },
     columns: [
 				 { data: "id", className: "text-center",orderable:false,width:30,
 			 	   render: function(data, type, full) {
@@ -130,21 +130,21 @@ var dtTable = $('#data-tables').DataTable({
  } );
 
 function view(id){
-	location.href="/user/message/view/"+id; 
+	location.href="${request.contextPath}/user/message/view/"+id; 
 }
 
 // 以下为页面操作，以上为datatables，之所以放在下面是要引用dtTable对象
 
 $("#allmsg").click(function(){
-	dtTable.ajax.url('/user/message/page?&t='+(new Date()).getTime()).load();
+	dtTable.ajax.url('${request.contextPath}/user/message/page?&t='+(new Date()).getTime()).load();
 });
 
 $("#unreadmsg").click(function(){
-	dtTable.ajax.url('/user/message/page?status=0&t='+(new Date()).getTime()).load();
+	dtTable.ajax.url('${request.contextPath}/user/message/page?status=0&t='+(new Date()).getTime()).load();
 });
 
 $("#readmsg").click(function(){
-	dtTable.ajax.url('/user/message/page?status=1&t='+(new Date()).getTime()).load();
+	dtTable.ajax.url('${request.contextPath}/user/message/page?status=1&t='+(new Date()).getTime()).load();
 });
 
 //批量删除
@@ -167,7 +167,7 @@ $("#delAll").click(function(){
 		}, function(index){
 			$.ajax({
 		     type:"get",
-		     url:'/user/message/delete/'+rowIds,
+		     url:'${request.contextPath}/user/message/delete/'+rowIds,
 		     success:function(msg){
 	     	   if(msg){
 		     			 dtTable.draw(false);//保持当前分页信息
@@ -184,7 +184,7 @@ $("#delAll").click(function(){
 $("#exp_excel").click(function(){
 	var selectRange = $("#selectRange option:selected").val();
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/user/export/excel?selectRange="+selectRange+"&searchValue="+searchValue;
+	location.href = "${request.contextPath}/user/export/excel?selectRange="+selectRange+"&searchValue="+searchValue;
 	alertSuccess();
 });
 
@@ -192,7 +192,7 @@ $("#exp_excel").click(function(){
 $("#exp_pdf").click(function(){
 	var selectRange = $("#selectRange option:selected").val();
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/user/export/pdf?selectRange="+selectRange+"&searchValue="+searchValue;
+	location.href = "${request.contextPath}/user/export/pdf?selectRange="+selectRange+"&searchValue="+searchValue;
 	alertSuccess();
 });
 
@@ -204,14 +204,14 @@ $("#print").click(function(){
 	$.ajax({
 		   type:"get",
 		   contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-		   url:"/user/print?selectRange="+selectRange+"&searchValue="+searchValue,
+		   url:"${request.contextPath}/user/print?selectRange="+selectRange+"&searchValue="+searchValue,
 		   success:function(msg){
 				  if(msg){
 					  $("#print_table").printThis({
 						   header: msg,
 						   importCSS: true,
 						   pageTitle: "用户列表",
-						   loadCSS: "/css/bootstrap.min.css", 
+						   loadCSS: "${request.contextPath}/css/bootstrap.min.css", 
 						   importStyle: true  
 					  		});
 				      }

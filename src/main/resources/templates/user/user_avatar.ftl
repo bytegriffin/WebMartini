@@ -30,15 +30,15 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="/js/layer.js"></script>
-<script type="text/javascript" src="/js/layer-plugin.js"></script>
-<script type="text/javascript" src="/js/fileinput.min.js"></script>
-<script type="text/javascript" src="/js/fileinput.zh.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/layer.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/layer-plugin.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/fileinput.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/fileinput.zh.js"></script>
 <script type="text/javascript">
 $("#input-repl-1a").fileinput({
    language:"zh",
    overwriteInitial: true,
-   uploadUrl: "/user/upload/avatar",
+   uploadUrl: "${request.contextPath}/user/upload/avatar",
    uploadAsync:true,
    autoReplace: true,
    overwriteInitial: true,
@@ -60,8 +60,8 @@ $("#input-repl-1a").fileinput({
 	 var resp = data.response;
 		if(resp.status){
 			alertSuccess();
-			parent.$("#avatar").attr('src', '/'+resp.avatar+'?v='+Math.random());
-			parent.parent.$("#avatar_samll").attr('src', '/'+resp.avatar+'?v='+Math.random());
+			parent.$("#avatar").attr('src', ${request.contextPath}+'/'+resp.avatar+'?v='+Math.random());
+			parent.parent.$("#avatar_samll").attr('src', ${request.contextPath}+'/'+resp.avatar+'?v='+Math.random());
 		}else{
 			alertError(resp.message);
 		}

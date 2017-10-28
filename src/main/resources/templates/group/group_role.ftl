@@ -21,7 +21,7 @@ var setting = {
 	   },
 	async: {
 			enable: true,
-			url:"/group/role_tree/"+${group_id},
+			url:"${request.contextPath}/group/role_tree/"+${group_id},
 			autoParam: ["id"],
 			dataType:"json",
 			dataFilter: filter
@@ -61,7 +61,7 @@ $(document).ready(function(){
 	      }
 		$.ajax({ 
 		   type: "post",
-		   url: "/group/role_ref", 
+		   url: "${request.contextPath}/group/role_ref", 
 		   data: {"role_ids" : nodestr,"group_id":${group_id}}, 
 		   success: function (data) { 
 						var index = parent.layer.getFrameIndex(window.name); 
@@ -90,14 +90,12 @@ $(document).ready(function(){
                     <div class="clearfix"></div>
                   </div>
 
-							 					<div class="x_content">
-							 					
-							 							<div ><ul id="treeDemo" class="ztree"></ul></div>
-							 						
-							 					</div>
-							 					</div>
+	 					<div class="x_content">
+	 							<div ><ul id="treeDemo" class="ztree"></ul></div>				 						
+	 					</div>
+	 					</div>
 					</div>
- 
+
  			<div class="form-group col-md-12 col-sm-12 col-xs-12">
 		   <button id="checkallbtn" type="button" class="btn btn-default ">全 选</button>
            <button id="uncheckallbtn" type="button" class="btn btn-default ">全不选</button>

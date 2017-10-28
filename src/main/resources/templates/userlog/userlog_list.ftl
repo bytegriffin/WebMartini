@@ -2,7 +2,7 @@
 <#include "/layout/table.ftl">  
 <@header />
 <@table />
-		<link rel="stylesheet" href="/css/daterangepicker.css" />	
+		<link rel="stylesheet" href="${request.contextPath}/css/daterangepicker.css" />	
 
 </head>
 <body style="background:#F7F7F7;" class="animated fadeIn">
@@ -73,13 +73,13 @@
   </div>
 
 
-<script type="text/javascript" src="/js/moment.min.js"></script>
-<script type="text/javascript" src="/js/moment.zh-cn.js"></script>
-<script type="text/javascript" src="/js/daterangepicker.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/moment.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/moment.zh-cn.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/daterangepicker.js"></script>
 <script type="text/javascript">
 //切换tab
 $("#error-tab").click(function(){
-  location.href="/userlog/error/list";
+  location.href="${request.contextPath}/userlog/error/list";
 });
 
 $('#operTime').daterangepicker({
@@ -94,7 +94,7 @@ $('#operTime').daterangepicker({
 $.fn.dataTable.ext.errMode = 'throw';
 var dtTable = $('#data-tables').DataTable({
  		  responsive: true,//自适应宽度，适合手机
-     language:{url:"/js/datatables_zh.json"},
+     language:{url:"${request.contextPath}/js/datatables_zh.json"},
      processing: false,
      serverSide: true,
      autoWidth: true,
@@ -102,7 +102,7 @@ var dtTable = $('#data-tables').DataTable({
      lengthMenu:[10,30,50],
      searching: false,
    　 order: [[1, "desc"]], //默认排序
-     ajax: { url:"/userlog/page", type:"post" },
+     ajax: { url:"${request.contextPath}/userlog/page", type:"post" },
      columns: [
 	      	 { data: "id",visible:false },
        		 { data: "operTime" ,width:100},
@@ -118,20 +118,20 @@ setInterval("reload()", ${interval});
 function reload(){
 	var operTime = $.trim($("#operTime").val());
 	var searchValue = $.trim($("#searchKey").val());
-	dtTable.ajax.url('/userlog/search?searchValue='+searchValue+'&operTime='+operTime).load();
+	dtTable.ajax.url('${request.contextPath}/userlog/search?searchValue='+searchValue+'&operTime='+operTime).load();
 }
 
 //搜索
 $("#search").click(function(){
 	  var operTime = $.trim($("#operTime").val());
 		var searchValue = $.trim($("#searchKey").val());
-		dtTable.ajax.url('/userlog/search?searchValue='+searchValue+'&operTime='+operTime).load();
+		dtTable.ajax.url('${request.contextPath}/userlog/search?searchValue='+searchValue+'&operTime='+operTime).load();
 });
 
 //搜索建议
 $('#searchKey').typeahead({
 	ajax: {
-     url: '/userlog/suggest?t='+(new Date()).getTime(),
+     url: '${request.contextPath}/userlog/suggest?t='+(new Date()).getTime(),
      timeout: 300, // 延时
      method: 'post',//中文参数必须要用POST
      triggerLength: 1, // 输入几个字符之后，开始请求
@@ -152,20 +152,20 @@ $('#searchKey').typeahead({
 
 //刷新列表
 $("#refresh").click(function(){
-	dtTable.ajax.url('/userlog/page?t='+(new Date()).getTime()).load();
+	dtTable.ajax.url('${request.contextPath}/userlog/page?t='+(new Date()).getTime()).load();
 });
 
 //导出excel
 $("#exp_excel").click(function(){
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/userlog/export/excel?searchValue="+searchValue;
+	location.href = "${request.contextPath}/userlog/export/excel?searchValue="+searchValue;
 	alertSuccess();
 });
 
 //导出pdf
 $("#exp_pdf").click(function(){
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/userlog/export/pdf?searchValue="+searchValue;
+	location.href = "${request.contextPath}/userlog/export/pdf?searchValue="+searchValue;
 	alertSuccess();
 });
 </script>

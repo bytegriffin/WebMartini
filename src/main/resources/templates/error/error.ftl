@@ -1,1 +1,1 @@
-location.href='${ctxPath}/error/500';
+location.href='${request.contextPath}/error/500';

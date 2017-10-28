@@ -2,7 +2,7 @@
 <#include "/layout/form.ftl">  
 <@header />
 <@form />
-<link rel="stylesheet" type="text/css" href="/css/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="${request.contextPath}/css/animate.min.css" />
 </head>
 <body id="body" style="background:#F7F7F7;" class="animated fadeInRigth">
 <div class="page-title">
@@ -17,7 +17,7 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2><a href="/user/message">&lt; 返回</a></h2>
+                    <h2><a href="${request.contextPath}/user/message">&lt; 返回</a></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -62,17 +62,17 @@
 							 					</div>
 					</div>
 
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 <script type="text/javascript">
 
 function download1(){
-	 location.href="/user/message/download?url=${message.attachment1}";
+	 location.href="${request.contextPath}/user/message/download?url=${message.attachment1}";
 }
 function download2(){
-	 location.href="/user/message/download?url=${message.attachment2}";
+	 location.href="${request.contextPath}/user/message/download?url=${message.attachment2}";
 }
 function download3(){
-	 location.href="/user/message/download?url=${message.attachment3}";
+	 location.href="${request.contextPath}/user/message/download?url=${message.attachment3}";
 }
 
 parent.loadcount();

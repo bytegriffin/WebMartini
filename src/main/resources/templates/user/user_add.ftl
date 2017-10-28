@@ -5,7 +5,7 @@
 </head>
 <body id="body" style="background:#F7F7F7;" >
 
-<form id="form_new" class="form-horizontal form-label-left"  action="/user/add" method="post">
+<form id="form_new" class="form-horizontal form-label-left"  action="${request.contextPath}/user/add" method="post">
             <br />
             
 								<div class="form-group">
@@ -89,7 +89,7 @@
 
       
        </form>
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 <script type="text/javascript">
 $("#role").select2({placeholder:"选择一个或多个角色"});
 $("#group").select2({placeholder:"选择一个或多个组织"});
@@ -123,7 +123,7 @@ $(document).ready(function() {
                notEmpty: {message: '此处为必填项'},
                stringLength: {min: 4,max: 20,message: '字符串长度必须在4-20之间'},
                regexp: {regexp: /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/,message: '只能填写数字、英文、中文和下划线'},
-               remote: {url: '/user/validate?flag=loginName&t='+(new Date()).getTime() ,message: '此登陆名已被其他人使用' }
+               remote: {url: '${request.contextPath}/user/validate?flag=loginName&t='+(new Date()).getTime() ,message: '此登陆名已被其他人使用' }
 			                     }
 			          },
 			    password: {
@@ -149,7 +149,7 @@ $(document).ready(function() {
             validators: {
                  notEmpty: {message: '此处为必填项'  },
                  emailAddress: { message: '无效的邮件地址'},
-                 remote: {url: '/user/validate?flag=email&t='+(new Date()).getTime() ,message: '此邮箱已被其他人使用' }
+                 remote: {url: '${request.contextPath}/user/validate?flag=email&t='+(new Date()).getTime() ,message: '此邮箱已被其他人使用' }
                                     }
                          },
         phone: {
@@ -158,7 +158,7 @@ $(document).ready(function() {
             validators: {
                 //notEmpty: {message: '此处为必填项'  },
                 regexp: {regexp: /^1[3|4|5|7|8][0-9]{9}$/ , message: '无效的电话号码'},
-                remote: {url: '/user/validate?flag=phone&t='+(new Date()).getTime() ,message: '此手机号码已被其他人使用' }
+                remote: {url: '${request.contextPath}/user/validate?flag=phone&t='+(new Date()).getTime() ,message: '此手机号码已被其他人使用' }
                                       }
                           }
              }

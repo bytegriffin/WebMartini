@@ -4,7 +4,7 @@
 <@form />
 </head>
 <body id="body" style="background:#F7F7F7;" >
-<form id="form_new" class="form-horizontal form-label-left" action="/role/add" method="post">
+<form id="form_new" class="form-horizontal form-label-left" action="${request.contextPath}/role/add" method="post">
  <br />
 
 								<div class="form-group">
@@ -49,7 +49,7 @@
             </div>
 
 </form>
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	 var form_id = "#form_new";
@@ -75,7 +75,7 @@ $(document).ready(function() {
              validators: {
                  notEmpty: {message: '此处为必填项'},
                  regexp: {regexp: /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/,message: '只能填写数字、英文、中文和下划线'},
-                 remote: {url: '/role/validate?flag=name&t='+(new Date()).getTime() , message: '此角色名称已被使用' }
+                 remote: {url: '${request.contextPath}/role/validate?flag=name&t='+(new Date()).getTime() , message: '此角色名称已被使用' }
 			                  }
 			          }
              }

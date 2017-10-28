@@ -20,7 +20,7 @@ var setting = {
 	   },
 	async: {
 			enable: true,
-			url:"/role/menu_tree/"+${role_id},
+			url:"${request.contextPath}/role/menu_tree/"+${role_id},
 			autoParam: ["id"],
 			dataType:"json",
 			dataFilter: filter
@@ -60,7 +60,7 @@ $(document).ready(function(){
 		 	 }
 		  $.ajax({ 
        type: "post", 
-       url: "/role/menu_ref", 
+       url: "${request.contextPath}/role/menu_ref", 
        data: {"menu_ids" : nodestr,"role_id":${role_id}}, 
        success: function (data) { 
     	   		var index = parent.layer.getFrameIndex(window.name); 

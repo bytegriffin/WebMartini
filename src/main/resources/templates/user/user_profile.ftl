@@ -2,8 +2,8 @@
 <#include "/layout/form.ftl">  
 <@header />
 <@form />
-<link rel="stylesheet" href="/css/layer.css" />		
-<link rel="stylesheet" href="/css/bootstrap-datepicker3.min.css" />	
+<link rel="stylesheet" href="${request.contextPath}/css/layer.css" />		
+<link rel="stylesheet" href="${request.contextPath}/css/bootstrap-datepicker3.min.css" />	
 </head>
 <body id="body" style="background:#F7F7F7;" >
 
@@ -37,9 +37,9 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <#if user.avatar??>
-									<img id="avatar" src="/${user.avatar}" class="btn img-responsive avatar-view" >
+									<img id="avatar" src="${request.contextPath}/${user.avatar}" class="btn img-responsive avatar-view" >
 							<#else >
-									<img id="avatar" src="/images/avatar.png" class="btn img-responsive avatar-view" >
+									<img id="avatar" src="${request.contextPath}/images/avatar.png" class="btn img-responsive avatar-view" >
 							</#if>
                         </div>
                       </div>
@@ -54,7 +54,7 @@
 				                   </#if>
                       </ul>
 
-                      <a class="btn btn-success" href="/user/message"><i class="fa fa-envelope-o m-right-xs"></i> 站内信 
+                      <a class="btn btn-success" href="${request.contextPath}/user/message"><i class="fa fa-envelope-o m-right-xs"></i> 站内信 
 										 					 <#if msgcount?? && msgcount gt 0>
 										 							<span class="badge">${msgcount}</span>
 										 					</#if>
@@ -126,7 +126,7 @@
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
-                           <form id="form_edit_profile" class="form-horizontal form-label-left" action="/user/edit/profile" method="post">    
+                           <form id="form_edit_profile" class="form-horizontal form-label-left" action="${request.contextPath}/user/edit/profile" method="post">    
 														            <div class="form-group">
 														                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">真实姓名 <span class="required">*</span>
 														                 </label>
@@ -198,7 +198,7 @@
 
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            <form id="form_edit_password" class="form-horizontal form-label-left" action="/user/edit/password" method="post">
+                            <form id="form_edit_password" class="form-horizontal form-label-left" action="${request.contextPath}/user/edit/password" method="post">
 
                           		<div class="form-group">
 											                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="currentpassword">输入当前密码 <span class="required">*</span>
@@ -248,15 +248,15 @@
             </div>
           </div>
 
-<script type="text/javascript" src="/js/layer.js"></script>
-<script type="text/javascript" src="/js/layer-plugin.js"></script>
-<script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
-<script type="text/javascript" src="/js/form.js"></script>
-<script type="text/javascript" src="/js/chartjs/Chart.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/layer.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/layer-plugin.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/chartjs/Chart.min.js"></script>
 <script type="text/javascript">
 
-$.get('/user/chart/pv').done(function(result) {
+$.get('${request.contextPath}/user/chart/pv').done(function(result) {
 	var ctx = document.getElementById("barChart");
 	ctx.height = 80;
 	var lineChart = new Chart(ctx, {
@@ -311,7 +311,7 @@ $("#avatar").click(function(){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
 		  offset: custom_offset,
-		  content: ['/user/avatar', 'no']
+		  content: [${request.contextPath}/user/avatar', 'no']
 		}); 
 });
 
@@ -373,7 +373,7 @@ $(document).ready(function() {
             validators: {
                 //notEmpty: {message: '此处为必填项'  },
                 regexp: {regexp: /^1[3|4|5|7|8][0-9]{9}$/ , message: '无效的电话号码'},
-                remote: {url: '/user/validate?id=${user.id}&flag=phone&t='+(new Date()).getTime() ,message: '此手机号码已被其他人使用' }
+                remote: {url: '${request.contextPath}/user/validate?id=${user.id}&flag=phone&t='+(new Date()).getTime() ,message: '此手机号码已被其他人使用' }
                                       }
                       },
         idNumber: {
@@ -408,7 +408,7 @@ $(document).ready(function() {
                  notEmpty: {message: '此处为必填项'},
                  stringLength: {min: 6,max: 20,message: '字符串长度必须在6-20之间'},
                  regexp: {regexp: /^[\w.]{6,20}$/ , message: '只能填写数字、英文和特殊符号'},
-                 remote: {url: '/user/validate/password' ,message: '当前用户密码输入错误' }
+                 remote: {url: '${request.contextPath}/user/validate/password' ,message: '当前用户密码输入错误' }
 			                  }
 			          },
 			   password: {

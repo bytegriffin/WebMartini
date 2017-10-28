@@ -2,8 +2,8 @@
 <#include "/layout/form.ftl">  
 <@header />
 <@form />
-		 <link rel="stylesheet" href="/css/wangEditor.css" />
-		 <link rel="stylesheet" href="/css/layer.css" />
+		 <link rel="stylesheet" href="${request.contextPath}/css/wangEditor.css" />
+		 <link rel="stylesheet" href="${request.contextPath}/css/layer.css" />
 
 		 <script type="text/javascript">
 //加载ztree
@@ -24,7 +24,7 @@ var groupsetting = {
 	 },
 	async: {
 			enable: true,
-			url:"/group/tree",
+			url:"${request.contextPath}/group/tree",
 			autoParam: ["id"],
 			dataType:"json",
 			dataFilter: filter
@@ -51,7 +51,7 @@ var rolesetting = {
 		   },
 		async: {
 				enable: true,
-				url:"/role/tree",
+				url:"${request.contextPath}/role/tree",
 				autoParam: ["id"],
 				dataType:"json",
 				dataFilter: filter
@@ -257,11 +257,11 @@ $(document).ready(function(){
 								</div>
       </div>
 
-<script type="text/javascript" src="/js/autosize.min.js"></script>
-<script type="text/javascript" src="/js/wangEditor.js"></script>
-<script type="text/javascript" src="/js/bootstrap-filestyle.min.js"></script>
-<script type="text/javascript" src="/js/layer.js"></script>
-<script type="text/javascript" src="/js/layer-plugin.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/autosize.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/wangEditor.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/bootstrap-filestyle.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/layer.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/layer-plugin.js"></script>
 <script type="text/javascript">
 
 //启动autosize
@@ -294,7 +294,7 @@ $('#attachment3').filestyle({
 
 //切换tab
 $("#msglist").click(function(){
-	location.href="/message/list";
+	location.href="${request.contextPath}/message/list";
 } );
 //启动icheck
 $('#alluser').iCheck({
@@ -380,7 +380,7 @@ $(form_id).bootstrapValidator({
  	  			if(submitButton.prop("id")=='savebtn'){//保存操作
 		 	    		$("#submittype").val("save");
 		 	    		$("#savebtn").attr("disabled",true);
-		 	    		url="/message/save";
+		 	    		url="${request.contextPath}/message/save";
 		 	    		$.ajax({
 			 	        type: 'POST',
 			 	        url: url,
@@ -404,7 +404,7 @@ $(form_id).bootstrapValidator({
  	     if(submitButton.prop("id")=='sendbtn'){//发送操作
 	 	    		 $("#submittype").val("send");
 	 	    		 $("#sendbtn").attr("disabled",true);
-	 	    		 url="/message/publish?msgid="+$("#msgid").val();
+	 	    		 url="${request.contextPath}/message/publish?msgid="+$("#msgid").val();
 	 	    		 $.ajax({
 		 	       type: 'POST',
 		 	       url: url,
@@ -417,7 +417,7 @@ $(form_id).bootstrapValidator({
 		 	    	      if(result.status){
 		 	    	    	  		//alertSuccess();
 		 	    	    	     //$(form_id).data('bootstrapValidator').resetForm(false);
-		 	    	    	     location.href="/message/list";
+		 	    	    	     location.href="${request.contextPath}/message/list";
 		 	    	      }else{  
 		 	    	    	 			alertError("操作失败"); 
 		 	    	                        }  
@@ -465,7 +465,7 @@ function edit(id){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
 		  offset: custom_offset,
-		  content: ['/user/edit/'+id, 'no']
+		  content: ['${request.contextPath}/user/edit/'+id, 'no']
 		}); 
 }
 

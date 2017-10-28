@@ -40,7 +40,7 @@
            <button id="savebtn" type="button" class="btn btn-success">保 存</button>
       </div>
 </form>
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 <script type="text/javascript">
 $('input.icheck').iCheck({
   checkboxClass: 'icheckbox_flat-green',

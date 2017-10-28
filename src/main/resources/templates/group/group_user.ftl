@@ -42,7 +42,7 @@
 			<button id="savebtn" type="button" class="btn btn-success">保 存</button>
       </div>
 </form>
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 <script type="text/javascript">
 $('input.icheck').iCheck({
   checkboxClass: 'icheckbox_flat-green',
@@ -63,7 +63,7 @@ $("#savebtn").click(function(){
   		});
 	  $.ajax({ 
 		   type: "post", 
-		   url: "/group/user_ref", 
+		   url: "${request.contextPath}/group/user_ref", 
 		   data: {"user_ids" : chk_value,"group_id":${group_id}}, 
 		   success: function (data) { 
 					 var index = parent.layer.getFrameIndex(window.name); 

@@ -4,7 +4,7 @@
 <@form />
 </head>
 <body id="body" style="background:#F7F7F7;" >
-<form id="form_edit" class="form-horizontal form-label-left"  action="/menu/edit" method="post">
+<form id="form_edit" class="form-horizontal form-label-left"  action="${request.contextPath}/menu/edit" method="post">
 <input type="hidden" id="id" name="id" value="${menu.id}">
 <br />
 
@@ -105,7 +105,7 @@
 
 </form>
 
-<script type="text/javascript" src="/js/form.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/form.js"></script>
 <script type="text/javascript">
 //启动切换按钮
 $('#status').bootstrapSwitch();
@@ -167,7 +167,7 @@ $(document).ready(function() {
              validators: {
                  notEmpty: {message: '此处为必填项'},
                  regexp: {regexp: /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/,message: '只能填写数字、英文、中文和下划线'},
-                 remote: {url: '/menu/validate?id=${menu.id}&flag=name&t='+(new Date()).getTime() , message: '此菜单名称已被使用' }
+                 remote: {url: '${request.contextPath}/menu/validate?id=${menu.id}&flag=name&t='+(new Date()).getTime() , message: '此菜单名称已被使用' }
 			                  }
 			          },
 			    url: {
@@ -175,7 +175,7 @@ $(document).ready(function() {
              trigger: 'blur',
              validators: {
                  //notEmpty: {message: '此处为必填项'},
-                 remote: {url: '/menu/validate?id=${menu.id}&flag=url&t='+(new Date()).getTime() , message: '此菜单链接已被使用' }
+                 remote: {url: '${request.contextPath}/menu/validate?id=${menu.id}&flag=url&t='+(new Date()).getTime() , message: '此菜单链接已被使用' }
 			                  }
 			          },
 			  priority: {
@@ -183,7 +183,7 @@ $(document).ready(function() {
           trigger: 'blur',
           validators: {
         	  		regexp: {regexp: /^[0-9]*[1-9][0-9]*$/,message: '只能填写正整数'}
-              //remote: {url: '/menu/validate?id=${menu.id}&flag=priority&parentId='+$("#parentId option:selected").val()+'&t='+(new Date()).getTime() , message: '此菜单权重已被其它同层级的菜单所使用' }
+              //remote: {url: '${request.contextPath}/menu/validate?id=${menu.id}&flag=priority&parentId='+$("#parentId option:selected").val()+'&t='+(new Date()).getTime() , message: '此菜单权重已被其它同层级的菜单所使用' }
 		                  }
 	 			    }
              }

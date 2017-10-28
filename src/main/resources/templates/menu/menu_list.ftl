@@ -79,7 +79,7 @@
 $.fn.dataTable.ext.errMode = 'throw';
 var dtTable = $('#data-tables').DataTable({
  		  responsive: true,//自适应宽度，适合手机
-     language:{url:"/js/datatables_zh.json"},
+     language:{url:"${request.contextPath}/js/datatables_zh.json"},
      processing: false,
      serverSide: true,
      autoWidth: true,
@@ -87,10 +87,10 @@ var dtTable = $('#data-tables').DataTable({
      lengthMenu:[10,30,50],
      searching: false,
    　 order: [[1, "asc"]], //默认排序
-     ajax: { url:"/menu/page", type:"post" },
+     ajax: { url:"${request.contextPath}/menu/page", type:"post" },
      columns: [
-				  { "data": "num" ,"orderable":false,width:60,className: "text-center"},
-	       { data: "id",visible:false },
+		{ "data": "num" ,"orderable":false,width:60,className: "text-center"},
+	    { data: "id",visible:false },
         { data: "name" ,width:100},
         { data: "url","orderable":false,width:160,
         	render: function(data, type, full) {
@@ -155,7 +155,7 @@ function del(id){
 		}, function(index){
 			$.ajax({
 	      type:"get",
-	      url:'/menu/delete/'+id,
+	      url:'${request.contextPath}/menu/delete/'+id,
 	      success:function(msg){
       		if(msg == "true"){
       			 dtTable.draw(false);//保持当前分页信息
@@ -180,7 +180,7 @@ function edit(id){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area_big,
 		  offset: custom_offset,
-		  content: ['/menu/edit/'+id, 'no']
+		  content: ['${request.contextPath}/menu/edit/'+id, 'no']
 		}); 
 }
 
@@ -193,7 +193,7 @@ function status(id,value){
 		}
 	 $.ajax({
 	    type:"get",
-	    url:'/menu/status?id='+id+"&status="+value
+	    url:'${request.contextPath}/menu/status?id='+id+"&status="+value
       });
 }
 
@@ -206,20 +206,20 @@ $("#add").click(function(){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area_big,
 		  offset: custom_offset,
-		  content: ['/menu/add', 'no']
+		  content: ['${request.contextPath}/menu/add', 'no']
 		}); 
 });
 
 //搜索
 $("#search").click(function(){
 		var searchValue = $.trim($("#searchKey").val());
-		dtTable.ajax.url('/menu/search?searchValue='+searchValue).load();
+		dtTable.ajax.url('${request.contextPath}/menu/search?searchValue='+searchValue).load();
 });	
 
 //搜索建议
 $('#searchKey').typeahead({
 	ajax: {
-     url: '/menu/suggest',
+     url: '${request.contextPath}/menu/suggest',
      timeout: 300, // 延时
      method: 'post',//中文参数必须要用POST
      triggerLength: 1, // 输入几个字符之后，开始请求
@@ -252,21 +252,21 @@ $("#upload").click(function(){
 		  shadeClose: custom_shadeClose,//点击阴影也可以关闭窗口
 		  area: custom_area,
 		  offset: custom_offset,
-		  content: ['/menu/import/excel', 'no']
+		  content: ['${request.contextPath}/menu/import/excel', 'no']
 		}); 
 });
 
 //导出excel
 $("#exp_excel").click(function(){
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/menu/export/excel?searchValue="+searchValue;
+	location.href = "${request.contextPath}/menu/export/excel?searchValue="+searchValue;
 	alertSuccess();
 });
 
 //导出pdf
 $("#exp_pdf").click(function(){
 	var searchValue = $.trim($("#searchKey").val());
-	location.href = "/menu/export/pdf?searchValue="+searchValue;
+	location.href = "${request.contextPath}/menu/export/pdf?searchValue="+searchValue;
 	alertSuccess();
 });
 </script>

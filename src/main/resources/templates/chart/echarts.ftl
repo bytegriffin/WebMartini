@@ -279,21 +279,21 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-				$.getScript("/js/echarts/trend_line.js");
-				$.getScript("/js/echarts/dynamic_area_line.js");
-				$.getScript("/js/echarts/stack_line.js");
-				$.getScript("/js/echarts/category_bar.js");
-				$.getScript("/js/echarts/negative_bar.js");
-				$.getScript("/js/echarts/mix_line_bar.js");
-				$.getScript("/js/echarts/simple_pie.js");
-				$.getScript("/js/echarts/nest_pie.js");
-				$.getScript("/js/echarts/rose_pie.js");
-				$.getScript("/js/echarts/simple_scatter.js");
-				$.getScript("/js/echarts/simple_radar.js");
-				$.getScript("/js/echarts/simple_funnel.js");
-				$.getScript("/js/echarts/simple_gauge.js");
-				$.getScript("/js/echarts/china_map.js");
-				$.getScript("/js/echarts/data_china_map.js");
+				$.getScript("${request.contextPath}/js/echarts/trend_line.js");
+				$.getScript("${request.contextPath}/js/echarts/dynamic_area_line.js");
+				$.getScript("${request.contextPath}/js/echarts/stack_line.js");
+				$.getScript("${request.contextPath}/js/echarts/category_bar.js");
+				$.getScript("${request.contextPath}/js/echarts/negative_bar.js");
+				$.getScript("${request.contextPath}/js/echarts/mix_line_bar.js");
+				$.getScript("${request.contextPath}/js/echarts/simple_pie.js");
+				$.getScript("${request.contextPath}/js/echarts/nest_pie.js");
+				$.getScript("${request.contextPath}/js/echarts/rose_pie.js");
+				$.getScript("${request.contextPath}/js/echarts/simple_scatter.js");
+				$.getScript("${request.contextPath}/js/echarts/simple_radar.js");
+				$.getScript("${request.contextPath}/js/echarts/simple_funnel.js");
+				$.getScript("${request.contextPath}/js/echarts/simple_gauge.js");
+				$.getScript("${request.contextPath}/js/echarts/china_map.js");
+				$.getScript("${request.contextPath}/js/echarts/data_china_map.js");
 });
 </script>
 </body>
