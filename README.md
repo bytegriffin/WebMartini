@@ -1,7 +1,8 @@
 ![Image](https://github.com/bytegriffin/WebMartini/blob/master/src/main/resources/static/images/webmaritni2.gif)
 ===================================  
+  WebMartini是一款较为通用的Web端的后台管理系统
 
-# web后台管理系统 
+# 特性
 * 支持多种终端访问：手机、PAD、PC
 * 包含用户管理、组织管理、角色管理、菜单管理、日志管理、报表管理等模块
 * 各模块支持上传、下载、分页等功能
