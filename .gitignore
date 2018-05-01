@@ -1,5 +1,21 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
+/target/
+.settings/
+.mvn/
+.metadata  
+.myeclipse
+.pydevproject
+/out/
+*.jar
+*.war  
+*.ear  
+*.class  
+classes/  
+.svn
+.*.swp  
+.DS_Store
+*.tmp  
+*.bak  
+*.swp 
 
 ### STS ###
 .apt_generated
