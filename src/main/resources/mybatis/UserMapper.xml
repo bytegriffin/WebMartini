@@ -26,7 +26,7 @@
      				u.id=ur.user_id and r.id=ur.role_id and r.id=mr.role_id and m.status=1 
      				and mr.menu_id=m.id and m.url !='' and u.id=#{id}
        union  
-				 select m.url from users u, groups g, group_user gu,group_role gr,roles r,menu_role mr,menu m where 
+				 select m.url from users u, system_group g, group_user gu,group_role gr,roles r,menu_role mr,menu m where 
      				u.id=gu.user_id and gu.group_id=g.id and gr.group_id=g.id and gr.role_id=r.id  
      				and r.id=mr.role_id and mr.menu_id=m.id and m.status=1 and m.url !='' and u.id=#{id}    
     </select>
@@ -124,7 +124,7 @@
     </select>
 
     <select id="getGroupNamesByUserId" parameterType="String" resultType="java.lang.String">
-        select g.name from group_user gu,groups g where g.id=gu.group_id and gu.user_id=#{userId}
+        select g.name from group_user gu,system_group g where g.id=gu.group_id and gu.user_id=#{userId}
     </select>
 
     <select id="getRoleIdsByUserId" parameterType="String" resultType="java.lang.String">

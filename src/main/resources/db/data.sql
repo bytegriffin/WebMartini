@@ -8,7 +8,7 @@ INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (5, 2, '00020003', '菜单管理',  'menu/list', 3,2,'fa-list-alt','1');
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (6, 2, '00020004', '角色管理',  'role/list', 4,2,'fa-users','1');
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (7, 2, '00020005', '日志管理',  'userlog/list', 5,2,'fa-file-text-o','1');
-/**  如果非菜单的系统功能(主要是依赖权限的功能)多了的话，是否考虑为一张Resources表，分为[菜单]和[功能]  两个选项  重构Menu表  **/
+/**  如果非菜单的系统功能(主要是依赖权限的功能)多了的话，可以考虑为一张Resources表，分为[菜单]和[功能]  两个选项  重构Menu表  **/
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (8, 2, '00020006', '系统公告',  'message/list', 6,2,'fa-envelope-square','1');
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (9, 0, '0003', '报表管理',  '', 3,1,'fa-bar-chart-o','1');
 INSERT INTO menu (id,parent_id,code,name,url,priority,levels,icon,status) VALUES (10, 9, '00030001', 'ECharts',  'chart/echarts', 1,2,'fa-line-chart','1');
@@ -32,7 +32,6 @@ INSERT INTO users (id,login_name,email,password,phone,status) VALUES (12, 'wumin
 INSERT INTO users (id,login_name,email,password,phone,status) VALUES (13, 'wuming2', '131313@webmartini.com', 'E10ADC3949BA59ABBE56E057F20F883E', '13800138013','1');
 INSERT INTO users (id,login_name,email,password,phone,status) VALUES (14, 'lijiaxin', '141414@webmartini.com', 'E10ADC3949BA59ABBE56E057F20F883E', '13800138014','1');
 INSERT INTO users (id,login_name,email,password,phone,status) VALUES (15, 'test', 'test@webmartini.com', 'E10ADC3949BA59ABBE56E057F20F883E', '13800138015','1');
-
 
 
 
@@ -66,16 +65,16 @@ INSERT INTO roles (id,parent_id,code,name) VALUES (27, 26, '0002000200020001', '
 INSERT INTO roles (id,parent_id,code,name) VALUES (28, 26, '0002000200020002', 'HR' );
 
 
-INSERT INTO groups (id,parent_id,code,name) VALUES (1, 0, '0001', '系统管理组' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (2, 0, '0002', '集团' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (3, 2, '00020001', '北京分公司' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (4, 3, '000200010001', '产品部' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (5, 3, '000200010002', '研发部' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (6, 3, '000200010003', '项目组' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (7, 3, '000200010004', '运营部' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (8, 2, '00020002', '上海分公司' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (9, 8, '000200020001', '营销部' );
-INSERT INTO groups (id,parent_id,code,name) VALUES (10, 8, '000200020002', '行政办公室' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (1, 0, '0001', '系统管理组' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (2, 0, '0002', '集团' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (3, 2, '00020001', '北京分公司' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (4, 3, '000200010001', '产品部' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (5, 3, '000200010002', '研发部' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (6, 3, '000200010003', '项目组' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (7, 3, '000200010004', '运营部' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (8, 2, '00020002', '上海分公司' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (9, 8, '000200020001', '营销部' );
+INSERT INTO system_group (id,parent_id,code,name) VALUES (10, 8, '000200020002', '行政办公室' );
 
 
 INSERT INTO user_role (id,user_id,role_id) VALUES ('1', '1', '1' );

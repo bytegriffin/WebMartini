@@ -69,7 +69,7 @@
     </resultMap>
 
     <select id="getGroupTrees" parameterType="String" resultMap="groupMapper">
-        select id,parent_id,name from groups where 1=1 order by code
+        select id,parent_id,name from system_group where 1=1 order by code
     </select>
 
     <select id="getGroupIdsByRoleId" parameterType="String" resultType="java.lang.String">

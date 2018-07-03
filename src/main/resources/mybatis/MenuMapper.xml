@@ -45,25 +45,25 @@
     </select>
 
     <select id="getEnabledMenus" parameterType="String" resultMap="menuMapper">
-			    SELECT * FROM (
-								select m.* from roles r, user_role ur,menu_role mr,menu m where 
-										  r.id=ur.role_id and r.id=mr.role_id and m.status=1 
-										 and mr.menu_id=m.id and ur.user_id=#{userId}
-							 union  
-								select m.* from groups g, group_user gu,group_role gr,roles r,menu_role mr,menu m where 
-										 gu.group_id=g.id and gr.group_id=g.id and gr.role_id=r.id  
-										and r.id=mr.role_id and mr.menu_id=m.id and m.status=1 and gu.user_id=#{userId} ) 
-					 AS MENU  order by MENU.levels,MENU.priority 
+	    SELECT * FROM (
+			select m.* from roles r, user_role ur,menu_role mr,menu m where 
+					 r.id=ur.role_id and r.id=mr.role_id and m.status=1 
+					 and mr.menu_id=m.id and ur.user_id=#{userId}
+		 union  
+			 select m.* from system_group g, group_user gu,group_role gr,roles r,menu_role mr,menu m where 
+					 gu.group_id=g.id and gr.group_id=g.id and gr.role_id=r.id  
+					and r.id=mr.role_id and mr.menu_id=m.id and m.status=1 and gu.user_id=#{userId} ) 
+		 AS MENU  order by MENU.levels,MENU.priority 
     </select>
 
     <update id="editMenuStatus" parameterType="String">
-				update  menu set status=#{param2} where id = #{param1}
-			</update>
+		 update  menu set status=#{param2} where id = #{param1}
+	</update>
 
     <select id="getExistCount" parameterType="String" resultType="java.lang.Integer">
-    			select count(*) from menu where 1=1 
-    			<if test="param2=='name'">
-        			and name=#{param3}
+    	 select count(*) from menu where 1=1 
+    	 <if test="param2=='name'">
+        	and name=#{param3}
         </if>
         <if test="param2=='url'">
         			and url=#{param3}
@@ -98,16 +98,16 @@
     </select>
 
     <update id="editMenu" parameterType="Menu">
-			   update menu set 
-			   	parent_id	= #{parentId},name	= #{name},url	= #{url},icon	= #{icon},
-			   	code	= #{code},priority	= #{priority},status	= #{status},
-			   	levels	= #{levels},description	= #{description} 
-				   WHERE id=#{id}
-			</update>
+		   update menu set 
+		   	parent_id	= #{parentId},name	= #{name},url	= #{url},icon	= #{icon},
+		   	code	= #{code},priority	= #{priority},status	= #{status},
+		   	levels	= #{levels},description	= #{description} 
+			   WHERE id=#{id}
+		</update>
 
-		<select id="getChildCount" parameterType="String" resultType="java.lang.Integer">
+ 	 <select id="getChildCount" parameterType="String" resultType="java.lang.Integer">
        select count(*) from menu where code like  '${code}%'
-    </select>
+     </select>
 
 		<delete id="delMenu" parameterType="String">
 				delete from menu where id = #{id}

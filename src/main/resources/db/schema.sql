@@ -4,32 +4,32 @@
 /*==============================================================*/
 
 
-drop table if exists group_role;
+drop table if exists `group_role`;
 
-drop table if exists group_user;
+drop table if exists `group_user`;
 
-drop table if exists groups;
+drop table if exists `system_group`;
 
-drop table if exists menu;
+drop table if exists `menu`;
 
-drop table if exists menu_role;
+drop table if exists `menu_role`;
 
-drop table if exists message;
+drop table if exists `message`;
 
-drop table if exists roles;
+drop table if exists `roles`;
 
-drop table if exists user_log;
+drop table if exists `user_log`;
 
-drop table if exists user_message;
+drop table if exists `user_message`;
 
-drop table if exists user_role;
+drop table if exists `user_role`;
 
-drop table if exists users;
+drop table if exists `users`;
 
 /*==============================================================*/
 /* Table: group_role                                            */
 /*==============================================================*/
-create table group_role
+create table `group_role`
 (
    id                   varchar(32) not null,
    role_id              int,
@@ -40,7 +40,7 @@ create table group_role
 /*==============================================================*/
 /* Table: group_user                                            */
 /*==============================================================*/
-create table group_user
+create table `group_user`
 (
    id                   varchar(32) not null,
    group_id             int,
@@ -49,9 +49,9 @@ create table group_user
 );
 
 /*==============================================================*/
-/* Table: groups                                                */
+/* Table: system_group                                                */
 /*==============================================================*/
-create table groups
+create table `system_group`
 (
    id                   int not null auto_increment,
    parent_id            int,
@@ -64,7 +64,7 @@ create table groups
 /*==============================================================*/
 /* Table: menu                                                  */
 /*==============================================================*/
-create table menu
+create table `menu`
 (
    id                   int not null auto_increment,
    parent_id            int,
@@ -82,7 +82,7 @@ create table menu
 /*==============================================================*/
 /* Table: menu_role                                             */
 /*==============================================================*/
-create table menu_role
+create table `menu_role`
 (
    id                   varchar(32) not null,
    menu_id              int,
@@ -93,7 +93,7 @@ create table menu_role
 /*==============================================================*/
 /* Table: message                                               */
 /*==============================================================*/
-create table message
+create table `message`
 (
    id                   int not null auto_increment,
    title                varchar(100),
@@ -115,7 +115,7 @@ create table message
 /*==============================================================*/
 /* Table: roles                                                 */
 /*==============================================================*/
-create table roles
+create table `roles`
 (
    id                   int not null auto_increment,
    name                 varchar(20),
@@ -128,7 +128,7 @@ create table roles
 /*==============================================================*/
 /* Table: user_log                                              */
 /*==============================================================*/
-create table user_log
+create table `user_log`
 (
    id                   varchar(32) not null,
    user_id              int,
@@ -150,7 +150,7 @@ create table user_log
 /*==============================================================*/
 /* Table: user_message                                          */
 /*==============================================================*/
-create table user_message
+create table `user_message`
 (
    id                   int not null auto_increment,
    send_id              int,
@@ -165,7 +165,7 @@ create table user_message
 /*==============================================================*/
 /* Table: user_role                                             */
 /*==============================================================*/
-create table user_role
+create table `user_role`
 (
    id                   varchar(32) not null,
    role_id              int,
@@ -176,7 +176,7 @@ create table user_role
 /*==============================================================*/
 /* Table: users                                                 */
 /*==============================================================*/
-create table users
+create table `users`
 (
    id                   int not null auto_increment,
    name                 varchar(20),
