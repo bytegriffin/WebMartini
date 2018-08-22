@@ -12,3 +12,6 @@
 # 系统截图 
 ![Image](https://github.com/bytegriffin/WebMartini/blob/master/src/main/resources/static/images/screen1.png)
 ![Image](https://github.com/bytegriffin/WebMartini/blob/master/src/main/resources/static/images/screen2.png)
+
+# License
+[Apache 2.0 License.](/LICENSE)
